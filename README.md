@@ -1,36 +1,29 @@
-# LinkedListImpl
+# linked_list_impl [![Gem Version](https://badge.fury.io/rb/linked_list_impl.svg)](https://badge.fury.io/rb/linked_list_impl) ![Gem](https://img.shields.io/gem/dt/linked_list_impl) [![Build Status](https://travis-ci.com/Diligent-Software-LLC/linked_list_impl.svg?branch=master)](https://travis-ci.com/Diligent-Software-LLC/linked_list_impl)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/linked_list_impl`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A LinkedList implementation. Implements the linked_list_int interface.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+- Refer the [implementation packages page](https://docs.diligentsoftware.org/linkedlist-1/packages).
 
-```ruby
-gem 'linked_list_impl'
-```
+## Documentation
 
-And then execute:
-
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install linked_list_impl
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+- Refer the [implementation homepage](https://docs.diligentsoftware.org/linkedlist-1/implementation) page.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/linked_list_impl.
+### Donate
 
+Donations support continuous improvement and maintenance. The aim is a reliable,
+integrable, and endurable LinkedList library. Make a donation at the 
+project's collective page: https://opencollective.com/linkedlist. 
+One-time and recurring donations are available at $1, $2, $4, $8, and $16. 
+Greatly appreciated.
+
+### Report Bugs
+
+- Refer the [Bug Reporting Procedure](https://github.com/Diligent-Software-LLC/linked_list_impl/issues/1).
+
+### Fix Bugs
+
+- Refer the [Bug Fixing Procedure](https://github.com/Diligent-Software-LLC/linked_list_impl/issues/2).

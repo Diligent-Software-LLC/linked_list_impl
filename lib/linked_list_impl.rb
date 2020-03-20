@@ -1,7 +1,11 @@
-require "linked_list_impl/version"
+# Copyright (C) 2020 Diligent Software LLC. All rights reserved. Released
+# under the MIT License.
 
-module LinkedListImpl
-  class Error < StandardError;
-  end
-  # Your code goes here...
+require_relative "linked_list_impl/version"
+
+# LinkedList.
+# @abstract
+# A LinkedList implementation. Implements the linked_list_int interface..
+class LinkedList
 end
+
