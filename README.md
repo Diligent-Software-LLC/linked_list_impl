@@ -1,14 +1,18 @@
 # linked_list_impl [![Gem Version](https://badge.fury.io/rb/linked_list_impl.svg)](https://badge.fury.io/rb/linked_list_impl) ![Gem](https://img.shields.io/gem/dt/linked_list_impl) [![Build Status](https://travis-ci.com/Diligent-Software-LLC/linked_list_impl.svg?branch=master)](https://travis-ci.com/Diligent-Software-LLC/linked_list_impl)
 
-A LinkedList implementation. Implements the linked_list_int interface.
+A LinkedList data structure implementation. Implements the LinkedList interface.
 
 ## Installation
 
-- Refer the [implementation packages page](https://docs.diligentsoftware.org/linkedlist-1/packages).
+- Refer the LinkedList Packages' 
+[Implementation](https://docs.diligentsoftware.org/linkedlist-1/packages#implementation) 
+page section.
 
 ## Documentation
 
-- Refer the [implementation homepage](https://docs.diligentsoftware.org/linkedlist-1/implementation) page.
+- Refer the LinkedList's 
+[Implementation](https://docs.diligentsoftware.org/linkedlist-1/implementation) 
+homepage.
 
 ## Contributing
 

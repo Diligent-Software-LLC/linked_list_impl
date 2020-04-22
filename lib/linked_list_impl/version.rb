@@ -1,9 +1,16 @@
-# Copyright (C) 2020 Diligent Software LLC. All rights reserved. Released 
-# under the MIT License.
+# Copyright (C) 2020 Diligent Software LLC. All rights reserved. Released
+# under the GNU General Public License, Version 3. Refer LICENSE.txt.
+
+require 'linked_list_int'
 
 # LinkedList.
-# @abstract
-# A LinkedList implementation. Implements the linked_list_int interface..
-class LinkedList
-  VERSION = '0.1.0'
+# @description
+#   A LinkedList data structure implementation. Implements the LinkedList
+#   interface.
+# @attr base [Node]
+#   A base Node.
+# @attr size [Integer]
+#   The list's Node quantity.
+class LinkedList < LinkedListInt
+  VERSION = '1.o.0'.freeze()
 end
