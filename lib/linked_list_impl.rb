@@ -2,6 +2,7 @@
 # under the GNU General Public License, Version 3. Refer LICENSE.txt.
 
 require_relative "linked_list_impl/version"
+require_relative 'helpers/inspect_helper'
 require 'node'
 require 'data_library'
 require 'linked_list_iterator'
@@ -15,6 +16,8 @@ require 'linked_list_iterator'
 # @attr size [Integer]
 #   The list's node quantity.
 class LinkedList < LinkedListInt
+
+  include InspectHelper
 
   # initialize(d_or_n = nil).
   # @description
@@ -41,6 +44,35 @@ class LinkedList < LinkedListInt
 
   end
 
+  # shallow_clone().
+  # @description
+  #   Shallowly clones self.
+  # @return [LinkedList]
+  #   Returns the LinkedList clone.
+  def shallow_clone()
+
+    if (base().nil?())
+      return clone()
+    end
+
+    iter   = iterator()
+    c_list = LinkedList.new(base().shallow_clone())
+    c_iter = c_list.iterator()
+    while (!iter.position().equal?(size() - ONE))
+
+      iter.next()
+      c_element = c_iter.element()
+      pro_n     = iter.element()
+      pro_n_c   = pro_n.shallow_clone()
+      detach(pro_n_c)
+      c_list.insert(pro_n_c, c_element)
+      c_iter.next()
+
+    end
+    return c_list
+
+  end
+
   # clone().
   # @description
   #   Clones self. Overrides Object's clone method.
@@ -48,16 +80,34 @@ class LinkedList < LinkedListInt
   #   self's clone. The clone is attributively equal and not identical.
   def clone()
 
-    unless (base().nil?())
+    case
+    when empty?()
+
       l_clone = LinkedList.new(base())
+      c_iter  = l_clone.iterator()
+      l_clone.remove(c_iter.element())
       return l_clone
+
+    when size() === ONE
+      return LinkedList.new(base())
     else
 
-      nil_node = Node.new(nil, nil, nil)
-      l_clone  = LinkedList.new(nil_node)
-      l_clone.insert(base(), nil_node)
-      l_clone.remove(nil_node)
-      return l_clone
+      iter = iterator()
+      iter.next()
+      l_c         = LinkedList.new(base())
+      lci         = l_c.iterator()
+      lci_element = lci.element()
+      pos         = ONE
+      while (pos < size())
+
+        ie_clone = iter.element()
+        l_c.insert(ie_clone, lci_element)
+        iter.next()
+        pos += 1
+        lci.next()
+
+      end
+      return l_c
 
     end
 
@@ -94,11 +144,8 @@ class LinkedList < LinkedListInt
     if (!inst.instance_of?(LinkedList))
       return false
     else
-
-      a_iterator = inst.iterator()
-      attr_eql   = ((a_iterator.eql_node?(base())) && (size().eql?(ll.size())))
+      attr_eql = (base().equal?(inst.base()) && (size().equal?(inst.size())))
       return attr_eql
-
     end
 
   end
@@ -120,52 +167,16 @@ class LinkedList < LinkedListInt
   #   Represents the String diagrammatically.
   # @return [String]
   #   The list nodes' inspections concatenated. The base node inspection
-  #   appends "base" following the first pipe.
+  #   appends the first pipe the label "base".
   def inspect()
 
     diagram = ""
     unless (empty?())
-      l_it  = iterator()
-      l_pos = iterator.position()
-      while (l_pos != size())
-
-        insp_n = at(l_pos)
-        case
-        when size().equal?(ONE) && l_pos.equal?(ZERO)
-          diagram += "| base #{insp_n.to_s()} |\n"
-        when size() > ONE && l_pos.equal?(ZERO)
-          diagram += "| base #{insp_n.to_s()} |#{FORWARD_ARROW}"
-        when l_pos.equal?(size() - 1)
-
-          insp_d  = insp_n.nil_front_insp()
-          upper_s = insp_d[:upper] + "\n"
-          diagram += upper_s
-
-        else
-          insp_d  = insp_n.doubly_linked_insp()
-          diagram += insp_d[:upper]
-        end
-        l_it.next()
-        l_pos += ONE
-
-      end
-
-      l_it2 = iterator()
-      l_pos = l_it2.position()
-      while (l_pos != size())
-        insp_n = at(l_pos)
-        if (l_pos.equal?(ZERO))
-          insp_d  = node.only_data_insp()
-          diagram += insp_d[:lower]
-        else
-          insp_d  = node.nil_front_insp()
-          diagram += insp_d[:lower]
-        end
-        l_pos += 1
-      end
-      return diagram
+      diagram += inspect_upper()
+      diagram += inspect_lower()
+    else
+      diagram = '| nil |'
     end
-    diagram = "| nil |"
     return diagram
 
   end
@@ -183,63 +194,59 @@ class LinkedList < LinkedListInt
   #   is empty.
   def remove(n = nil)
 
-    error = NodeError.new()
-    if (!n.instance_of?(Node))
+    case
+    when empty?()
+      raise(IndexError, 'The list is empty.')
+    when !n.instance_of?(Node)
+      error = NodeError.new()
       raise(error, error.message())
+    when base().no_attachments() && (n === base())
+      self.base = nil
+      self.size = 0
+    when base().no_attachments() && !(n === base())
+      return nil
     else
 
-      l_iterator        = iterator()
-      l_pos             = l_iterator.position()
-      identical_node    = nil
-      idn_pos           = l_pos
-      identical_node_sc = identical_node.shallow_clone()
-
-      while (l_pos < size())
-        if (l_iterator.identical_node?(n))
-          identical_node = n
-          idn_pos        = l_pos
-        end
-        l_iterator.next() unless (l_iterator.position().equal?(size() - ONE))
-        l_pos += 1
+      l_iterator = iterator()
+      id_n       = nil
+      l_element  = l_iterator.element()
+      while (!(n === l_element) && !(l_element.pioneer()))
+        l_iterator.next()
+        l_element = l_iterator.element()
+      end
+      if (l_element.equal?(n))
+        id_n = n
+      else
+        return id_n
       end
 
       case
-      when identical_node.nil?()
+      when id_n.nil?()
         return nil
-      when identical_node_sc.b().nil?() && identical_node_sc.f().nil?()
-        self.base = nil
-        self.size = 0
-      when identical_node_sc.b().nil?() && !identical_node_sc.f().nil?()
+      when id_n.base()
 
-        prev_base = base()
-        sub_n     = Node.new(prev_base.back(), prev_base.data(), nil)
-        self.base = prev_base.front()
-        self.size -= 1
-        prev_base.substitute(sub_n)
+        l_iterator.next()
+        self.base = l_iterator.element()
+        detach_nodes(id_n, l_iterator.element())
 
-      when !identical_node_sc.b().nil?() && identical_node_sc.f().nil?()
+      when id_n.pioneer()
 
-        prec_node = identical_node.back()
-        sub_n1    = Node.new(prec_node.back(), prec_node.data(), nil)
-        sub_n2    =
-            Node.new(nil, identical_node.data(), identical_node.front())
-        prec_node.substitute(sub_n1)
-        identical_node.substitute(sub_n2)
-        self.size -= 1
+        l_iterator.prev()
+        back_n = l_iterator.element()
+        detach_nodes(back_n, id_n)
 
-      when !identical_node.back().nil?() && identical_node.front().nil?()
+      when id_n.back_attached() && id_n.front_attached()
 
-        prec_node = identical_node.back()
-        pro_node  = identical_node.front()
-        sub_n     = Node.new(prec_node.back(), prec_node.data(), pro_node)
-        prec_node.substitute(sub_n)
-        sub_n = Node.new(prec_node, pro_node.data(), pro_node.front())
-        pro_node.substitute(sub_n)
-        sub_n = Node.new(nil, identical_node.data(), nil)
-        identical_node.substitute(sub_n)
-        self.size -= 1
+        l_iterator.prev()
+        pre_n = l_iterator.element()
+        l_iterator.next()
+        l_iterator.next()
+        pro_n = l_iterator.element()
+        attach_nodes(pre_n, pro_n)
+        detach(id_n)
 
       end
+      self.size = size() - 1
 
     end
     return nil
@@ -259,96 +266,44 @@ class LinkedList < LinkedListInt
   #   In the case node1 or node2 are any type other than Node.
   def insert(node1 = nil, node2 = nil)
 
-    error = NodeError.new()
-    if (!node1.instance_of?(Node) || !node2.instance_of?(Node))
+    case
+    when (!node1.instance_of?(Node) || !node2.instance_of?(Node))
+      error = NodeError.new()
       raise(error, error.message())
     else
 
+      detach(node1)
       id_n       = nil
       l_iterator = iterator()
-      l_pos      = l_iterator.position()
-      while (l_pos < size())
+      id_n       = node2 if (node2 === l_iterator.element())
+      while ((!(node2 === l_iterator.element()) &&
+          !(l_iterator.element().pioneer() ||
+              l_iterator.element().no_attachments())))
+        l_iterator.next()
+      end
 
-        if (l_iterator.identical_node?(node2))
-          id_n = node2
-        end
-        l_iterator.next() unless (l_iterator.position().equal?(size() - ONE))
-        l_pos += 1
-
+      if (node2 === l_iterator.element())
+        id_n = node2
+      else
+        return id_n
       end
 
       case
-      when id_n.nil?()
-        return nil
-      when !id_n.front().nil?()
+      when id_n.no_attachments(), node2.pioneer()
+        attach_nodes(node2, node1)
+      when node2.base(), (node2.front_attached() && node2.back_attached())
 
-        pro_node = id_n.front()
-        prec_n   = id_n
-        node1    = Node.new(prec_n, node1.data(), pro_node)
-        sub_n    = Node.new(prec_n.back(), prec_n.data(), node1)
-        prec_n.substitute(sub_n)
-        sub_n = Node.new(node1, pro_node.data(), pro_node.front())
-        pro_node.substitute(sub_n)
-        self.size += 1
-
-      when id_n.front().nil?()
-
-        id_n_sub = Node.new(id_n.back(), id_n.data(), node1)
-        id_n.substitute(id_n_sub)
-        n1_sub = Node.new(id_n, node1.data(), node1.front())
-        node1.substitute(n1_sub)
-        self.size += 1
+        l_iterator.next()
+        pro_n = l_iterator.element()
+        attach_nodes(node2, node1)
+        attach_nodes(node1, pro_n)
 
       end
+      self.size += 1
 
     end
     return nil
 
-  end
-
-  # [](position = nil).
-  # @description
-  #   Subscript operator. Gets the data at the list position.
-  # @param position [Integer]
-  #   The data's location.
-  # @return [Numeric, FalseClass, Symbol, TrueClass, String, Time, NilClass]
-  #   The data at the position.
-  def [](position = nil)
-    case
-    when !position.instance_of?(Integer)
-      raise(ArgumentError, 'The position is not an Integer instance.')
-    when position < 0, position >= size()
-      raise(IndexError, "The argument is less than zero or greater than" +
-          "#{size() - 1}.")
-    else
-      node = at(position)
-      return node.data()
-    end
-  end
-
-  # []=(position = nil, data = nil).
-  # @description
-  #   Subscript assignment operator. Sets the data at the specified position.
-  # @param position [Integer]
-  #   The set location.
-  # @param data [Numeric, FalseClass, Symbol, TrueClass, String, Time, NilClass]
-  #   The data setting.
-  # @return [NilClass]
-  #   nil.
-  def []=(position = nil, data = nil)
-    error = DataError.new()
-    case
-    when !position.instance_of?(Integer)
-      raise(ArgumentError, 'The position is not an Integer instance.')
-    when position < 0, position >= size()
-      raise(IndexError, "The argument is less than zero or greater than " +
-          "#{size() - 1}.")
-    when !DataType.instance?(data)
-      raise(error, error.message())
-    else
-      node      = at(position)
-      node.data = data
-    end
   end
 
   # iterator().
@@ -358,6 +313,17 @@ class LinkedList < LinkedListInt
   #   An iterator instance.
   def iterator()
     return LinkedListIterator.new(base())
+  end
+
+  protected
+
+  # base()
+  # @description
+  #   Gets the base node's reference.
+  # @return [Node]
+  #   The base node.
+  def base()
+    return @base
   end
 
   private
@@ -383,15 +349,6 @@ class LinkedList < LinkedListInt
     @size = integer
   end
 
-  # base()
-  # @description
-  #   Gets the base node's reference.
-  # @return [Node]
-  #   The base node.
-  def base()
-    return @base
-  end
-
   # base=(node = nil).
   # @description
   #   Sets the base node.
@@ -401,22 +358,52 @@ class LinkedList < LinkedListInt
     @base = node
   end
 
-  # at(position = nil).
+  # attach_nodes(n1 = nil, n2 = nil).
   # @description
-  #   Gets the list's node at the position.
-  # @param position [Integer]
-  #   The list position.
-  # @return [Node]
-  #   The node reference at the list position.
-  def at(position = nil)
+  #   Attaches two Nodes.
+  # @param n1 [Node]
+  #   The precession Node. Sets the front attribute the second Node's reference.
+  # @param n2 [Node]
+  #   The consequential Node. Sets the back attribute the preceding Node.
+  # @return [NilClass]
+  #   nil.
+  def attach_nodes(n1 = nil, n2 = nil)
 
-    node  = base()
-    count = 0
-    while (position != count)
-      node  = node.front()
-      count += 1
-    end
-    return node
+    n1.attach_front(n2)
+    n2.attach_back(n1)
+    return nil
+
+  end
+
+  # detach_nodes(n1 = nil, n2 = nil).
+  # @description
+  #   Detaches two Nodes.
+  # @param n1 [Node]
+  #   The precession. Sets front nil.
+  # @param n2 [Node]
+  #   The consequent. Sets back nil.
+  # @return [NilClass]
+  #   nil.
+  def detach_nodes(n1 = nil, n2 = nil)
+
+    n1.detach_front()
+    n2.detach_back()
+    return nil
+
+  end
+
+  # detach(n = nil).
+  # @description
+  #   Detaches a list Node's front and back references.
+  # @param n [Node]
+  #   Any list Node.
+  # @return [NilClass]
+  #   nil.
+  def detach(n = nil)
+
+    n.detach_back()
+    n.detach_front()
+    return nil
 
   end
 

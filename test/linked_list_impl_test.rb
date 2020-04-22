@@ -8,7 +8,7 @@ class LinkedListTest < Minitest::Test
   # Constants.
   CLASS = LinkedList
 
-  NIL_DATA        = nil
+  NILCLASS_DATA = nil
   INTEGER_DATA    = 2
   FALSECLASS_DATA = false
   TRUECLASS_DATA  = true
@@ -49,7 +49,7 @@ class LinkedListTest < Minitest::Test
   # @description
   #   Set fixtures.
   def setup()
-    @node = Node.new(NIL_DATA, INTEGER_DATA, NIL_DATA)
+    @node = Node.new(NILCLASS_DATA, INTEGER_DATA, NILCLASS_DATA)
   end
 
   # initialize(d_or_n = nil)
@@ -72,7 +72,7 @@ class LinkedListTest < Minitest::Test
 
     x2_l  = CLASS.new(@node)
     x2_it = x2_l.iterator()
-    assert_operator(x2_it, 'identical_node?', @node)
+    assert_same(x2_it.element(), @node)
 
   end
 
@@ -90,7 +90,56 @@ class LinkedListTest < Minitest::Test
 
     x4_init = CLASS.new()
     x4_it   = x4_init.iterator()
-    assert_same(x4_it.data(), NIL_DATA)
+    assert_same(x4_it.data(), NILCLASS_DATA)
+
+  end
+
+  # shallow_clone()
+
+  # test_sc_x1().
+  # @description
+  #   An empty list.
+  def test_sc_x1()
+
+    x1_l = LinkedList.new(@node)
+    x1_l.remove(@node)
+    s_c = x1_l.shallow_clone()
+    assert_equal(s_c, x1_l)
+
+  end
+
+  # test_sc_x2().
+  # @description
+  #   A size one list.
+  def test_sc_x2()
+
+    x1_l = LinkedList.new(@node)
+    s_c  = x1_l.shallow_clone()
+    refute_same(x1_l, s_c)
+    refute_equal(x1_l, s_c)
+    c_iter = s_c.iterator()
+    iter   = x1_l.iterator()
+    assert_same(c_iter.data(), iter.data())
+
+  end
+
+  # test_sc_x3().
+  # @description
+  #   A list size greater than one.
+  def test_sc_x3()
+
+    n1   = Node.new(NILCLASS_DATA, SYMBOL_DATA, NILCLASS_DATA)
+    x3_l = LinkedList.new(@node)
+    x3_l.insert(n1, @node)
+    s_c = x3_l.shallow_clone()
+    refute_same(x3_l, s_c)
+    refute_equal(x3_l, s_c)
+    iter   = x3_l.iterator()
+    c_iter = s_c.iterator()
+    assert_same(iter.data(), c_iter.data())
+    iter.next()
+    c_iter.next()
+    assert_same(iter.data(), c_iter.data())
 
   end
 
@@ -116,10 +165,9 @@ class LinkedListTest < Minitest::Test
   def test_clone_x2()
 
     x2_l    = CLASS.new(@node)
-    x2_it   = x2_l.iterator()
     x2_l_c  = x2_l.clone()
     x2_c_it = x2_l_c.iterator()
-    assert_operator(x2_c_it, 'identical_node?', @node)
+    assert_same(x2_c_it.element(), @node)
     assert_same(x2_l.size(), x2_l_c.size())
 
   end
@@ -130,8 +178,8 @@ class LinkedListTest < Minitest::Test
   #   and identically unequal.
   def test_clone_x3()
 
-    x3_1  = LinkedList.new(@node)
-    ins_n = Node.new(NIL_DATA, SYMBOL_DATA, NIL_DATA)
+    x3_l  = LinkedList.new(@node)
+    ins_n = Node.new(NILCLASS_DATA, SYMBOL_DATA, NILCLASS_DATA)
     x3_l.insert(ins_n, @node)
     x3_l_c = x3_l.clone()
     assert_equal(x3_l, x3_l_c)
@@ -166,7 +214,7 @@ class LinkedListTest < Minitest::Test
   def test_size_x3()
 
     x3_l  = LinkedList.new(@node)
-    ins_n = Node.new(NIL_DATA, COMPLEX_DATA, NIL_DATA)
+    ins_n = Node.new(NILCLASS_DATA, COMPLEX_DATA, NILCLASS_DATA)
     x3_l.insert(ins_n, @node)
     assert_same(TWO, x3_l.size())
 
@@ -234,7 +282,7 @@ class LinkedListTest < Minitest::Test
     x1_l = CLASS.new(@node)
     x1_l.remove(@node)
     expected = '| nil |'
-    assert_equal(expected, x.inspect())
+    assert_equal(expected, x1_l.inspect())
 
   end
 
@@ -244,8 +292,11 @@ class LinkedListTest < Minitest::Test
   def test_insp_x1b()
 
     x1_l     = CLASS.new(@node)
-    expected = "| base: #{@node.to_s()} |\n|         data: #{@node.data()}" +
-        "           |"
+    space    = ' '
+    d_p_q    = (26 - 7) / 2
+    padding  = space * d_p_q
+    expected = "| base #{@node.to_s()} |\n" +
+        "| #{padding}data: #{@node.d()}#{padding}  |"
     assert_equal(expected, x1_l.inspect())
 
   end
@@ -256,11 +307,17 @@ class LinkedListTest < Minitest::Test
   #   separated.
   def test_insp_x1c()
 
-    x1_l = CLASS.new(@node)
-    x1_l.insert(Node.new(nil, STRING_DATA, nil), @node)
-    expected = "| base: #{@node.to_s()} |-->| #{ins_n.to_s()} |\n|         " +
-        "data: #{@node.data()}          |<--|         data: #{ins_n.data()}" +
-        "        |"
+    x1_l  = CLASS.new(@node)
+    ins_n = Node.new(NILCLASS_DATA, STRING_DATA, NILCLASS_DATA)
+    x1_l.insert(ins_n, @node)
+    space    = ' '
+    d_p_q1   = (31 - 7) / 2
+    padding1 = space * d_p_q1
+    d_p_q2   = (26 - 10) / 2
+    padding2 = space * d_p_q2
+    expected = "| base #{@node.to_s()} |-->| #{ins_n.to_s()} |\n" +
+        "| #{padding1}data: #{@node.d()}#{padding1} |<--|" +
+        " #{padding2}data: #{ins_n.d()}#{padding2} |"
     assert_equal(expected, x1_l.inspect())
 
   end
@@ -274,7 +331,7 @@ class LinkedListTest < Minitest::Test
 
     x1_l = CLASS.new(@node)
     x1_l.remove(@node)
-    assert_raises(NodeError) {
+    assert_raises(IndexError) {
       x1_l.remove(@node)
     }
 
@@ -304,7 +361,7 @@ class LinkedListTest < Minitest::Test
     x3_l.insert(n_n, @node)
     x3_l.remove(n_n)
     x3_it = x3_l.iterator()
-    assert_operator(x3_it, 'identical_node?', @node)
+    assert_same(x3_it.element(), @node)
     assert_same(ONE, x3_l.size())
 
   end
@@ -316,7 +373,7 @@ class LinkedListTest < Minitest::Test
 
     assert_raises(NodeError) {
       x4_l = CLASS.new()
-      x4_l.remove(NIL_DATA)
+      x4_l.remove(NILCLASS_DATA)
     }
 
   end
@@ -344,7 +401,7 @@ class LinkedListTest < Minitest::Test
     x6_l.remove(r_n)
     assert_same(ONE, x6_l.size())
     x6_it = x6_l.iterator()
-    assert_operator(x6_it, 'identical_node?', @node)
+    assert_same(x6_it.element(), @node)
 
   end
 
@@ -355,12 +412,12 @@ class LinkedListTest < Minitest::Test
   def test_remove_x7()
 
     x7_l = CLASS.new(@node)
-    n_n  = Node.new(NIL_DATA, TIME_DATA, NIL_DATA)
+    n_n = Node.new(NILCLASS_DATA, TIME_DATA, NILCLASS_DATA)
     x7_l.insert(n_n, @node)
     x7_l.remove(@node)
     x7_it = x7_l.iterator()
     assert_same(ONE, x7_l.size())
-    assert_operator(x7_it, 'identical_node?', n_n)
+    assert_same(x7_it.element(), n_n)
 
   end
 
@@ -371,15 +428,15 @@ class LinkedListTest < Minitest::Test
   def test_remove_x8()
 
     x8_l = CLASS.new(@node)
-    n1   = Node.new(NIL_DATA, STRING_DATA, NIL_DATA)
-    n2   = Node.new(NIL_DATA, TIME_DATA, NIL_DATA)
+    n1   = Node.new(NILCLASS_DATA, STRING_DATA, NILCLASS_DATA)
+    n2   = Node.new(NILCLASS_DATA, TIME_DATA, NILCLASS_DATA)
     x8_l.insert(n1, @node)
     x8_l.insert(n2, n1)
     x8_l.remove(n1)
     x8_it = x8_l.iterator()
-    assert_operator(x8_it, 'identical_node?', @node)
+    assert_same(x8_it.element(), @node)
     x8_it.next()
-    assert_operator(x8_it, 'identical_node?', n2)
+    assert_same(x8_it.element(), n2)
 
   end
 
@@ -446,7 +503,7 @@ class LinkedListTest < Minitest::Test
     x5_l.insert(ins_node, @node)
     l_it = x5_l.iterator()
     l_it.next()
-    assert_operator(l_it, 'identical_node?', ins_node)
+    assert_same(l_it.element(), ins_node)
 
   end
 
@@ -455,150 +512,22 @@ class LinkedListTest < Minitest::Test
   #   The insertion Node argument is a list element.
   def test_ins_x6()
 
-    assert_raises(ArgumentError) {
+    assert_raises(NodeError) {
       x6_l = CLASS.new(@node)
       x6_l.insert(@node, nil)
     }
 
   end
 
-  # test_ins_x7().
-  # @description
-  # A list sizing greater than zero inserts a node at the position index. Size
-  # increments.
-  def test_ins_x7()
-    # xb       = @y1_inst
-    # pre_size = xb.size()
-    # xb.insert_at(0, @x4_data)
-    # post_size = xb.size()
-    # assert_same(pre_size + 1, post_size)
-    # ins_data = xb[0]
-    # assert_same(@x4_data, ins_data)
-  end
-
   # test_ins_x8().
   # @description
   # Inserting data in an empty list raises an IndexError.
   def test_ins_x8()
+
     x8_l = LinkedList.new(@node)
     x8_l.remove(@node)
     assert_raises(NodeError) {
       x8_l.insert(@node, nil)
-    }
-  end
-
-  # [](position = nil)
-
-  # test_subscript_x1().
-  # @description
-  #   The data and the original are identical.
-  def test_subscript_x1()
-
-    x1_l = LinkedList.new(@node)
-    d    = x1_l[ZERO]
-    assert_same(@node.data(), d)
-
-  end
-
-  # test_subscript_x1b().
-  # @description
-  #   Calling the subscript operator on an empty list.
-  def test_subscript_x1b()
-
-    x1b_l = LinkedList.new(@node)
-    x1b_l.remove(@node)
-    assert_raises(IndexError) {
-      x1b_l[ZERO]
-    }
-
-  end
-
-  # test_subscript_x2b().
-  # @description
-  #   Arguing a negative integer or an integer greater than or equalling size
-  #   raises an IndexError. Any object other than an Integer instance raises an
-  #   ArgumentError.
-  def test_subscript_x2b()
-
-    x2b_l   = LinkedList.new(@node)
-    neg_int = -1
-    assert_raises(IndexError) {
-      x2b_l[neg_int]
-    }
-    upper_bound_i = x2b_l.size()
-    assert_raises(IndexError) {
-      x2b_l[upper_bound_i]
-    }
-    illegal_type_name = 0.0
-    assert_raises(ArgumentError) {
-      x2b_l[illegal_type_name]
-    }
-
-  end
-
-  # []=(position = nil, dti = nil)
-
-  # test_subs_ass_x1b().
-  # @description
-  #   Assigning valid data.
-  def test_subs_ass_x1b()
-
-    x1b_l       = LinkedList.new(@node)
-    x1b_l[ZERO] = COMPLEX_DATA
-    assert_same(x1b_l[ZERO], COMPLEX_DATA)
-
-  end
-
-  # test_subs_ass_x1a().
-  # @description
-  #   Calling the subscript assignment operator on an empty list.
-  def test_subs_ass_x1a()
-
-    x1a_l = LinkedList.new(@node)
-    x1a_l.remove(@node)
-    assert_raises(IndexError) {
-      x1a_l[ZERO] = STRING_DATA
-    }
-
-  end
-
-  # test_subs_ass_x2bc().
-  # @description
-  #   Arguing a position less than zero or greater than or equalling size.
-  def test_subs_ass_x2bc()
-
-    x2bc_l = LinkedList.new(@node)
-    b      = -1
-    c      = x2bc_l.size()
-    assert_raises(IndexError) {
-      x2bc_l[b] = NIL_DATA
-    }
-    assert_raises(IndexError) {
-      x2bc_l[c] = NIL_DATA
-    }
-
-  end
-
-  # test_subs_ass_x2d().
-  # @description
-  #   Arguing a position instance type anything excluding Integer.
-  def test_subs_ass_x2d()
-
-    x2d_l = LinkedList.new(@node)
-    assert_raises(ArgumentError) {
-      x2d_l[FLOAT_DATA] = NIL_DATA
-    }
-
-  end
-
-  # test_subs_ass_x3b().
-  # @description
-  #   Arguing invalid data.
-  def test_subs_ass_x3b()
-
-    x3b_l = LinkedList.new(@node)
-    assert_raises(DataError) {
-      x3b_l[ZERO] = INVALID_DATA
     }
 
   end
@@ -625,7 +554,7 @@ class LinkedListTest < Minitest::Test
 
     x2_l  = CLASS.new(@node)
     x2_it = x2_l.iterator()
-    assert_operator(x2_it, 'identical_node?', @node)
+    assert_same(x2_it.element(), @node)
 
   end
 

@@ -12,5 +12,5 @@ require 'linked_list_int'
 # @attr size [Integer]
 #   The list's Node quantity.
 class LinkedList < LinkedListInt
-  VERSION = '1.o.0'.freeze()
+  VERSION = '1.0.0'.freeze()
 end
