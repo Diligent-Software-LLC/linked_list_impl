@@ -27,6 +27,7 @@
 - Deleted '[](position = nil)', '[]=(position = nil, data = nil)', and 
 'at(position = nil)' methods.
 - Deleted Travis CI deployment settings.
+- Dependency linked_list_int's Major Version number.
 
 ### Fixed
 

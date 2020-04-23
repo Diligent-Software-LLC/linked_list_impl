@@ -34,7 +34,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9613de64-25f8-4766-85e1-338bbfa32e40" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Changelog.md" beforeDir="false" afterPath="$PROJECT_DIR$/Changelog.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/linked_list_impl.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/linked_list_impl.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/linked_list_impl.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/linked_list_impl.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linked_list_impl.gemspec" beforeDir="false" afterPath="$PROJECT_DIR$/linked_list_impl.gemspec" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -270,7 +274,7 @@
       <workItem from="1585868265988" duration="93434000" />
       <workItem from="1587476327794" duration="3723000" />
       <workItem from="1587511638122" duration="1412000" />
-      <workItem from="1587562768320" duration="25700000" />
+      <workItem from="1587562768320" duration="26728000" />
     </task>
     <task id="LOCAL-00001" summary="Initialized Local Repository&#10;&#10;Created remote repository, no push. Initialized project directory.">
       <created>1584720892679</created>
@@ -293,7 +297,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587596074664</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Development Complete&#10;&#10;Fixed the Minor Version number. Added an inspection helper module. Added InspectHelper tests. 'require'd and included the module in the implementation. Added 'shallow_clone()', 'attach_nodes(n1 = nil, n2 = nil)', 'detach_nodes(n1 = nil, n2 = nil)', and 'detach(n = nil)' methods. Rewrote 'clone()', 'inspect()', 'remove(n = nil)', and 'insert(node1 = nil, node2 = nil)'. Edited 'base()' privacy. Deleted '[](position = nil)', '[]=(position = nil, data = nil)', and 'at(position = nil)' methods. Added tests covering additions, editions, and deletions. Deleted Travis CI deploy settings.">
+      <created>1587596728313</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1587596728313</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers>
       <YouTrack url="https://macbook-pro.local:8443">
         <option name="defaultSearch" value="project: LinkedList  Component: Implementation Sprints: 4 #{Prepare Deployment}" />
@@ -345,30 +356,34 @@
       <screen x="0" y="23" width="1680" height="975" />
     </state>
     <state x="554" y="274" key="#com.intellij.tools.ToolEditorDialog/0.23.1680.975@0.23.1680.975" timestamp="1585838483955" />
-    <state x="98" y="45" width="1423" height="898" key="CommitChangelistDialog2" timestamp="1587596073907">
+    <state x="98" y="45" width="1423" height="898" key="CommitChangelistDialog2" timestamp="1587600299631">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
-    <state x="98" y="45" width="1423" height="898" key="CommitChangelistDialog2/0.23.1680.975@0.23.1680.975" timestamp="1587596073907" />
-    <state width="1541" height="270" key="GridCell.Tab.0.bottom" timestamp="1587595279019">
+    <state x="98" y="45" width="1423" height="898" key="CommitChangelistDialog2/0.23.1680.975@0.23.1680.975" timestamp="1587600299631" />
+    <state width="1541" height="270" key="GridCell.Tab.0.bottom" timestamp="1587597085538">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
-    <state width="1541" height="270" key="GridCell.Tab.0.bottom/0.23.1680.975@0.23.1680.975" timestamp="1587595279019" />
-    <state width="1541" height="270" key="GridCell.Tab.0.center" timestamp="1587595279018">
+    <state width="1541" height="270" key="GridCell.Tab.0.bottom/0.23.1680.975@0.23.1680.975" timestamp="1587597085538" />
+    <state width="1541" height="270" key="GridCell.Tab.0.center" timestamp="1587597085537">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
-    <state width="1541" height="270" key="GridCell.Tab.0.center/0.23.1680.975@0.23.1680.975" timestamp="1587595279018" />
-    <state width="1541" height="270" key="GridCell.Tab.0.left" timestamp="1587595279017">
+    <state width="1541" height="270" key="GridCell.Tab.0.center/0.23.1680.975@0.23.1680.975" timestamp="1587597085537" />
+    <state width="1541" height="270" key="GridCell.Tab.0.left" timestamp="1587597085536">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
-    <state width="1541" height="270" key="GridCell.Tab.0.left/0.23.1680.975@0.23.1680.975" timestamp="1587595279017" />
-    <state width="1541" height="270" key="GridCell.Tab.0.right" timestamp="1587595279018">
+    <state width="1541" height="270" key="GridCell.Tab.0.left/0.23.1680.975@0.23.1680.975" timestamp="1587597085536" />
+    <state width="1541" height="270" key="GridCell.Tab.0.right" timestamp="1587597085537">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
-    <state width="1541" height="270" key="GridCell.Tab.0.right/0.23.1680.975@0.23.1680.975" timestamp="1587595279018" />
+    <state width="1541" height="270" key="GridCell.Tab.0.right/0.23.1680.975@0.23.1680.975" timestamp="1587597085537" />
     <state x="334" y="149" key="SettingsEditor" timestamp="1587420066332">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
     <state x="334" y="149" key="SettingsEditor/0.23.1680.975@0.23.1680.975" timestamp="1587420066332" />
+    <state x="425" y="250" key="Vcs.Push.Dialog.v2" timestamp="1587596748944">
+      <screen x="0" y="23" width="1680" height="975" />
+    </state>
+    <state x="425" y="250" key="Vcs.Push.Dialog.v2/0.23.1680.975@0.23.1680.975" timestamp="1587596748943" />
     <state x="438" y="235" width="816" height="550" key="find.popup" timestamp="1587588682076">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
@@ -381,10 +396,10 @@
       <screen x="0" y="23" width="1680" height="975" />
     </state>
     <state x="511" y="235" width="670" height="675" key="run.anything.popup/0.23.1680.975@0.23.1680.975" timestamp="1587567278519" />
-    <state x="511" y="237" width="670" height="676" key="search.everywhere.popup" timestamp="1587596130657">
+    <state x="511" y="237" width="670" height="676" key="search.everywhere.popup" timestamp="1587598894130">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
-    <state x="511" y="237" width="670" height="676" key="search.everywhere.popup/0.23.1680.975@0.23.1680.975" timestamp="1587596130657" />
+    <state x="511" y="237" width="670" height="676" key="search.everywhere.popup/0.23.1680.975@0.23.1680.975" timestamp="1587598894130" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/linked_list_impl@test_init_x3.rcov" NAME="test_init_x3 Coverage Results" MODIFIED="1586912221325" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="linked_list_impl" />

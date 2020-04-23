@@ -137,7 +137,7 @@ class LinkedList < LinkedListInt
   # @param inst [.]
   #   A comparison instance.
   # @return [TrueClass, FalseClass]
-  #   True in the case the lists' attributes are attributively equal. False
+  #   True in the case the lists' attributes are identical. False
   #   otherwise.
   def ==(inst = nil)
 
@@ -320,8 +320,8 @@ class LinkedList < LinkedListInt
   # base()
   # @description
   #   Gets the base node's reference.
-  # @return [Node]
-  #   The base node.
+  # @return [Node, NilClass]
+  #   The instance.
   def base()
     return @base
   end

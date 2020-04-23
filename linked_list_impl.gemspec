@@ -43,7 +43,7 @@ available at $1, $2, $4, $8, and $16. Greatly appreciated.}
   # Development and testing dependencies.
   spec.add_development_dependency 'bundler', '~> 2.1'
   spec.add_development_dependency 'simplecov', '~> 0'
-  spec.add_development_dependency 'linked_list_int', '~> 1'
+  spec.add_development_dependency 'linked_list_int', '~> 2'
   spec.add_development_dependency 'data_structure_library', '~> 1'
   spec.add_development_dependency 'data_library', '~> 0'
   spec.add_development_dependency 'node', '~> 4'
