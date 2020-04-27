@@ -1,6 +1,18 @@
 # Changelog
 
-## 1.0.0, 2020-04-22
+## v1.1.0, 2020-04-27
+
+### Added
+
+### Edited
+
+### Fixed
+
+- linked_list_impl.rb 'require' data_library statement.
+- Tests using 'STRING_DATA' and 'TIME_DATA'. 'STRING_DATA' and 'TIME_DATA' were 
+substituted.
+
+## v1.0.0, 2020-04-22
 
 ### Added
 

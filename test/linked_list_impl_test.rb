@@ -13,8 +13,6 @@ class LinkedListTest < Minitest::Test
   FALSECLASS_DATA = false
   TRUECLASS_DATA  = true
   SYMBOL_DATA     = :test_symbol
-  STRING_DATA     = 'test'
-  TIME_DATA       = Time.now()
   COMPLEX_DATA    = Complex(1)
   FLOAT_DATA      = 0.0
   INVALID_DATA    = {}
@@ -308,16 +306,16 @@ class LinkedListTest < Minitest::Test
   def test_insp_x1c()
 
     x1_l  = CLASS.new(@node)
-    ins_n = Node.new(NILCLASS_DATA, STRING_DATA, NILCLASS_DATA)
+    ins_n    = Node.new(NILCLASS_DATA, SYMBOL_DATA, NILCLASS_DATA)
     x1_l.insert(ins_n, @node)
     space    = ' '
     d_p_q1   = (31 - 7) / 2
     padding1 = space * d_p_q1
-    d_p_q2   = (26 - 10) / 2
+    d_p_q2   = (26 - 17) / 2
     padding2 = space * d_p_q2
     expected = "| base #{@node.to_s()} |-->| #{ins_n.to_s()} |\n" +
         "| #{padding1}data: #{@node.d()}#{padding1} |<--|" +
-        " #{padding2}data: #{ins_n.d()}#{padding2} |"
+        " #{padding2}data: #{ins_n.d()}#{padding2}  |"
     assert_equal(expected, x1_l.inspect())
 
   end
@@ -357,7 +355,7 @@ class LinkedListTest < Minitest::Test
   def test_remove_x3()
 
     x3_l = CLASS.new(@node)
-    n_n  = Node.new(nil, STRING_DATA, nil)
+    n_n = Node.new(nil, SYMBOL_DATA, nil)
     x3_l.insert(n_n, @node)
     x3_l.remove(n_n)
     x3_it = x3_l.iterator()
@@ -412,7 +410,7 @@ class LinkedListTest < Minitest::Test
   def test_remove_x7()
 
     x7_l = CLASS.new(@node)
-    n_n = Node.new(NILCLASS_DATA, TIME_DATA, NILCLASS_DATA)
+    n_n = Node.new(NILCLASS_DATA, COMPLEX_DATA, NILCLASS_DATA)
     x7_l.insert(n_n, @node)
     x7_l.remove(@node)
     x7_it = x7_l.iterator()
@@ -428,8 +426,8 @@ class LinkedListTest < Minitest::Test
   def test_remove_x8()
 
     x8_l = CLASS.new(@node)
-    n1   = Node.new(NILCLASS_DATA, STRING_DATA, NILCLASS_DATA)
-    n2   = Node.new(NILCLASS_DATA, TIME_DATA, NILCLASS_DATA)
+    n1   = Node.new(NILCLASS_DATA, SYMBOL_DATA, NILCLASS_DATA)
+    n2   = Node.new(NILCLASS_DATA, COMPLEX_DATA, NILCLASS_DATA)
     x8_l.insert(n1, @node)
     x8_l.insert(n2, n1)
     x8_l.remove(n1)
@@ -461,7 +459,7 @@ class LinkedListTest < Minitest::Test
 
     assert_raises(NodeError) {
       x1_l = CLASS.new(@node)
-      x1_l.insert(Node.new(nil, TIME_DATA, nil), SYMBOL_DATA)
+      x1_l.insert(Node.new(nil, COMPLEX_DATA, nil), SYMBOL_DATA)
     }
 
   end
@@ -473,7 +471,7 @@ class LinkedListTest < Minitest::Test
 
     assert_raises(NodeError) {
       x3_l = CLASS.new(@node)
-      x3_l.insert(STRING_DATA, SYMBOL_DATA)
+      x3_l.insert(SYMBOL_DATA, SYMBOL_DATA)
     }
 
   end
@@ -485,7 +483,7 @@ class LinkedListTest < Minitest::Test
 
     x4_l     = CLASS.new(@node)
     pre_size = x4_l.size()
-    x4_l.insert(Node.new(nil, INTEGER_DATA, nil), Node.new(nil, STRING_DATA,
+    x4_l.insert(Node.new(nil, INTEGER_DATA, nil), Node.new(nil, SYMBOL_DATA,
                                                            nil))
     x4_it = x4_l.iterator()
     assert_same(pre_size, x4_l.size())
@@ -498,7 +496,7 @@ class LinkedListTest < Minitest::Test
   #   argument is valid.
   def test_ins_x5()
 
-    ins_node = Node.new(nil, STRING_DATA, nil)
+    ins_node = Node.new(nil, SYMBOL_DATA, nil)
     x5_l     = CLASS.new(@node)
     x5_l.insert(ins_node, @node)
     l_it = x5_l.iterator()

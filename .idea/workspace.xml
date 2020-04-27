@@ -34,11 +34,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9613de64-25f8-4766-85e1-338bbfa32e40" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.rakeTasks" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.rakeTasks" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/linked_list_impl.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/linked_list_impl.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Changelog.md" beforeDir="false" afterPath="$PROJECT_DIR$/Changelog.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/linked_list_impl.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/linked_list_impl.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linked_list_impl.gemspec" beforeDir="false" afterPath="$PROJECT_DIR$/linked_list_impl.gemspec" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/linked_list_impl/version.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/linked_list_impl/version.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/linked_list_impl_test.rb" beforeDir="false" afterPath="$PROJECT_DIR$/test/linked_list_impl_test.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +49,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageViewManager">
-    <option name="myElementSize" value="300" />
+    <option name="myElementSize" value="350" />
   </component>
   <component name="ExportToHTMLSettings">
     <option name="OPEN_IN_BROWSER" value="true" />
@@ -60,6 +63,12 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
@@ -79,6 +88,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.jetbrains.youtrack.notifications" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs.protractor.protractor_package" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -87,6 +97,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/artifacts" />
       <recent name="$PROJECT_DIR$/lib/helpers" />
     </key>
   </component>
@@ -96,9 +107,10 @@
       <command value="touch lib/helpers inspect_helper.rb" />
       <command value="mkdir test/helpers" />
       <command value="touch test/helpers/inspect_helper_test.rb" />
+      <command value="mkdir artifacts" />
     </option>
   </component>
-  <component name="RunManager" selected="Test::Unit/Shoulda/Minitest.test_clone_x2">
+  <component name="RunManager" selected="Test::Unit/Shoulda/Minitest.LinkedListTest">
     <configuration name="All tests in test: linked_list_impl" type="TestUnitRunConfigurationType" factoryName="Test::Unit/Shoulda/Minitest" temporary="true">
       <module name="linked_list_impl" />
       <predefined_log_file enabled="true" id="RUBY_TESTUNIT" />
@@ -246,9 +258,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Test::Unit/Shoulda/Minitest.LinkedListTest" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.test_clone_x2" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.All tests in test: linked_list_impl" />
-        <item itemvalue="Test::Unit/Shoulda/Minitest.LinkedListTest" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.test_lb_x" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.InspectHelperTest" />
       </list>
@@ -274,7 +286,8 @@
       <workItem from="1585868265988" duration="93434000" />
       <workItem from="1587476327794" duration="3723000" />
       <workItem from="1587511638122" duration="1412000" />
-      <workItem from="1587562768320" duration="26728000" />
+      <workItem from="1587562768320" duration="27071000" />
+      <workItem from="1588019223798" duration="1034000" />
     </task>
     <task id="LOCAL-00001" summary="Initialized Local Repository&#10;&#10;Created remote repository, no push. Initialized project directory.">
       <created>1584720892679</created>
@@ -304,10 +317,17 @@
       <option name="project" value="LOCAL" />
       <updated>1587596728313</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Prepare Deployment&#10;&#10;Edited YARDocumentation. Updated linked_list_int Major Version number.">
+      <created>1587600437618</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1587600437618</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers>
       <YouTrack url="https://macbook-pro.local:8443">
-        <option name="defaultSearch" value="project: LinkedList  Component: Implementation Sprints: 4 #{Prepare Deployment}" />
+        <option name="defaultSearch" value="project: LinkedList  Subsystem: {No Subsystem} Component: Implementation Sprints: 4 #{Prepare Deployment}" />
         <username>admin</username>
       </YouTrack>
     </servers>
@@ -332,7 +352,8 @@
     <MESSAGE value="Initialized Local Repository&#10;&#10;Created remote repository, no push. Initialized project directory." />
     <MESSAGE value="Setup Complete&#10;&#10;Added YARDocumentation. Bumped version. Added 'initialize(d_or_n = nil)', 'clone()', 'size()', 'empty?()', '==(inst = nil)', '===(inst = nil)', 'inspect()', 'remove(n = nil)', 'insert(node1 = nil, node2 = nil)', '[](position = nil)', '[]=(position = nil, data = nil)', 'iterator()', 'initialize_node(dti = nil)', 'size=(integer = nil)', 'base()', 'base=(node = nil)', and 'at(position = nil)'. Added tests. Deleted Travis CI deployment settings. Added the Gem Specification. Added a .yardopts file. Added a README.md." />
     <MESSAGE value="Development Complete&#10;&#10;Fixed the Minor Version number. Added an inspection helper module. Added InspectHelper tests. 'require'd and included the module in the implementation. Added 'shallow_clone()', 'attach_nodes(n1 = nil, n2 = nil)', 'detach_nodes(n1 = nil, n2 = nil)', and 'detach(n = nil)' methods. Rewrote 'clone()', 'inspect()', 'remove(n = nil)', and 'insert(node1 = nil, node2 = nil)'. Edited 'base()' privacy. Deleted '[](position = nil)', '[]=(position = nil, data = nil)', and 'at(position = nil)' methods. Added tests covering additions, editions, and deletions. Deleted Travis CI deploy settings." />
-    <option name="LAST_COMMIT_MESSAGE" value="Development Complete&#10;&#10;Fixed the Minor Version number. Added an inspection helper module. Added InspectHelper tests. 'require'd and included the module in the implementation. Added 'shallow_clone()', 'attach_nodes(n1 = nil, n2 = nil)', 'detach_nodes(n1 = nil, n2 = nil)', and 'detach(n = nil)' methods. Rewrote 'clone()', 'inspect()', 'remove(n = nil)', and 'insert(node1 = nil, node2 = nil)'. Edited 'base()' privacy. Deleted '[](position = nil)', '[]=(position = nil, data = nil)', and 'at(position = nil)' methods. Added tests covering additions, editions, and deletions. Deleted Travis CI deploy settings." />
+    <MESSAGE value="Prepare Deployment&#10;&#10;Edited YARDocumentation. Updated linked_list_int Major Version number." />
+    <option name="LAST_COMMIT_MESSAGE" value="Prepare Deployment&#10;&#10;Edited YARDocumentation. Updated linked_list_int Major Version number." />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -356,34 +377,34 @@
       <screen x="0" y="23" width="1680" height="975" />
     </state>
     <state x="554" y="274" key="#com.intellij.tools.ToolEditorDialog/0.23.1680.975@0.23.1680.975" timestamp="1585838483955" />
-    <state x="98" y="45" width="1423" height="898" key="CommitChangelistDialog2" timestamp="1587600299631">
+    <state x="98" y="45" width="1423" height="898" key="CommitChangelistDialog2" timestamp="1587600437159">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
-    <state x="98" y="45" width="1423" height="898" key="CommitChangelistDialog2/0.23.1680.975@0.23.1680.975" timestamp="1587600299631" />
-    <state width="1541" height="270" key="GridCell.Tab.0.bottom" timestamp="1587597085538">
+    <state x="98" y="45" width="1423" height="898" key="CommitChangelistDialog2/0.23.1680.975@0.23.1680.975" timestamp="1587600437159" />
+    <state width="1541" height="270" key="GridCell.Tab.0.bottom" timestamp="1588019912572">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
-    <state width="1541" height="270" key="GridCell.Tab.0.bottom/0.23.1680.975@0.23.1680.975" timestamp="1587597085538" />
-    <state width="1541" height="270" key="GridCell.Tab.0.center" timestamp="1587597085537">
+    <state width="1541" height="270" key="GridCell.Tab.0.bottom/0.23.1680.975@0.23.1680.975" timestamp="1588019912572" />
+    <state width="1541" height="270" key="GridCell.Tab.0.center" timestamp="1588019912570">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
-    <state width="1541" height="270" key="GridCell.Tab.0.center/0.23.1680.975@0.23.1680.975" timestamp="1587597085537" />
-    <state width="1541" height="270" key="GridCell.Tab.0.left" timestamp="1587597085536">
+    <state width="1541" height="270" key="GridCell.Tab.0.center/0.23.1680.975@0.23.1680.975" timestamp="1588019912569" />
+    <state width="1541" height="270" key="GridCell.Tab.0.left" timestamp="1588019912568">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
-    <state width="1541" height="270" key="GridCell.Tab.0.left/0.23.1680.975@0.23.1680.975" timestamp="1587597085536" />
-    <state width="1541" height="270" key="GridCell.Tab.0.right" timestamp="1587597085537">
+    <state width="1541" height="270" key="GridCell.Tab.0.left/0.23.1680.975@0.23.1680.975" timestamp="1588019912568" />
+    <state width="1541" height="270" key="GridCell.Tab.0.right" timestamp="1588019912571">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
-    <state width="1541" height="270" key="GridCell.Tab.0.right/0.23.1680.975@0.23.1680.975" timestamp="1587597085537" />
+    <state width="1541" height="270" key="GridCell.Tab.0.right/0.23.1680.975@0.23.1680.975" timestamp="1588019912571" />
     <state x="334" y="149" key="SettingsEditor" timestamp="1587420066332">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
     <state x="334" y="149" key="SettingsEditor/0.23.1680.975@0.23.1680.975" timestamp="1587420066332" />
-    <state x="425" y="250" key="Vcs.Push.Dialog.v2" timestamp="1587596748944">
+    <state x="425" y="250" key="Vcs.Push.Dialog.v2" timestamp="1587600481299">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
-    <state x="425" y="250" key="Vcs.Push.Dialog.v2/0.23.1680.975@0.23.1680.975" timestamp="1587596748943" />
+    <state x="425" y="250" key="Vcs.Push.Dialog.v2/0.23.1680.975@0.23.1680.975" timestamp="1587600481299" />
     <state x="438" y="235" width="816" height="550" key="find.popup" timestamp="1587588682076">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
@@ -392,14 +413,14 @@
       <screen x="0" y="23" width="1680" height="975" />
     </state>
     <state width="600" height="424" key="javadoc.popup/0.23.1680.975@0.23.1680.975" timestamp="1587593537224" />
-    <state x="511" y="235" width="670" height="675" key="run.anything.popup" timestamp="1587567278519">
+    <state x="511" y="235" width="670" height="675" key="run.anything.popup" timestamp="1587600545357">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
-    <state x="511" y="235" width="670" height="675" key="run.anything.popup/0.23.1680.975@0.23.1680.975" timestamp="1587567278519" />
-    <state x="511" y="237" width="670" height="676" key="search.everywhere.popup" timestamp="1587598894130">
+    <state x="511" y="235" width="670" height="675" key="run.anything.popup/0.23.1680.975@0.23.1680.975" timestamp="1587600545357" />
+    <state x="511" y="237" width="670" height="676" key="search.everywhere.popup" timestamp="1588019957897">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
-    <state x="511" y="237" width="670" height="676" key="search.everywhere.popup/0.23.1680.975@0.23.1680.975" timestamp="1587598894130" />
+    <state x="511" y="237" width="670" height="676" key="search.everywhere.popup/0.23.1680.975@0.23.1680.975" timestamp="1588019957897" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/linked_list_impl@test_init_x3.rcov" NAME="test_init_x3 Coverage Results" MODIFIED="1586912221325" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="linked_list_impl" />
@@ -415,7 +436,7 @@
     <SUITE FILE_PATH="coverage/linked_list_impl@test_insa_x1.rcov" NAME="test_insa_x1 Coverage Results" MODIFIED="1585266324509" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="linked_list_impl" />
     <SUITE FILE_PATH="coverage/linked_list_impl@test_remove_x4.rcov" NAME="test_remove_x4 Coverage Results" MODIFIED="1586914525130" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="linked_list_impl" />
     <SUITE FILE_PATH="coverage/linked_list_impl@test_ins_x7.rcov" NAME="test_ins_x7 Coverage Results" MODIFIED="1586914758959" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="linked_list_impl" />
-    <SUITE FILE_PATH="coverage/linked_list_impl@LinkedListTest.rcov" NAME="LinkedListTest Coverage Results" MODIFIED="1587594561082" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="linked_list_impl" />
+    <SUITE FILE_PATH="coverage/linked_list_impl@LinkedListTest.rcov" NAME="LinkedListTest Coverage Results" MODIFIED="1588019908818" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="linked_list_impl" />
     <SUITE FILE_PATH="coverage/linked_list_impl@test_init_x4.rcov" NAME="test_init_x4 Coverage Results" MODIFIED="1586912225156" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="linked_list_impl" />
     <SUITE FILE_PATH="coverage/linked_list_impl@test_sc_x2.rcov" NAME="test_sc_x2 Coverage Results" MODIFIED="1587576576688" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="linked_list_impl" />
     <SUITE FILE_PATH="coverage/linked_list_impl@test_remove_x6.rcov" NAME="test_remove_x6 Coverage Results" MODIFIED="1586914555726" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="linked_list_impl" />

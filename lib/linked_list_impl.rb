@@ -4,7 +4,7 @@
 require_relative "linked_list_impl/version"
 require_relative 'helpers/inspect_helper'
 require 'node'
-require 'data_library'
+require 'data_type'
 require 'linked_list_iterator'
 
 # LinkedList.
