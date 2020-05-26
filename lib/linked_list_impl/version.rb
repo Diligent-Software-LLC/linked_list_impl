@@ -5,12 +5,12 @@ require 'linked_list_int'
 
 # LinkedList.
 # @description
-#   A LinkedList data structure implementation. Implements the LinkedList
-#   interface.
-# @attr base [Node]
-#   A base Node.
+#   A doubly-linked LinkedList data structure library's implementation.
+#   Implements the LinkedList interface.
+# @attr base [NodeAdapter]
+#   A base.
 # @attr size [Integer]
-#   The list's Node quantity.
+#   The list's element quantity.
 class LinkedList < LinkedListInt
-  VERSION = '1.1.0'.freeze()
+  VERSION = '2.0.0'.freeze()
 end

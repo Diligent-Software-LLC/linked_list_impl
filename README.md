@@ -1,18 +1,17 @@
 # linked_list_impl [![Gem Version](https://badge.fury.io/rb/linked_list_impl.svg)](https://badge.fury.io/rb/linked_list_impl) ![Gem](https://img.shields.io/gem/dt/linked_list_impl) [![Build Status](https://travis-ci.com/Diligent-Software-LLC/linked_list_impl.svg?branch=master)](https://travis-ci.com/Diligent-Software-LLC/linked_list_impl)
 
-A LinkedList data structure implementation. Implements the LinkedList interface.
+A doubly-linked LinkedList data structure library's implementation. Implements 
+the LinkedList interface.
 
 ## Installation
 
-- Refer the LinkedList Packages' 
-[Implementation](https://docs.diligentsoftware.org/linkedlist-1/packages#implementation) 
-page section.
+- Refer Implementation's 
+[Packages](https://docs.diligentsoftware.org/linkedlist-1/packages#implementation).
 
 ## Documentation
 
-- Refer the LinkedList's 
-[Implementation](https://docs.diligentsoftware.org/linkedlist-1/implementation) 
-homepage.
+- Refer Implementation's 
+[Homepage](https://docs.diligentsoftware.org/linkedlist-1/implementation).
 
 ## Contributing
 
@@ -26,8 +25,10 @@ Greatly appreciated.
 
 ### Report Bugs
 
-- Refer the [Bug Reporting Procedure](https://github.com/Diligent-Software-LLC/linked_list_impl/issues/1).
+- Refer the 
+[Bug Reporting Procedure](https://github.com/Diligent-Software-LLC/linked_list_impl/issues/1).
 
 ### Fix Bugs
 
-- Refer the [Bug Fixing Procedure](https://github.com/Diligent-Software-LLC/linked_list_impl/issues/2).
+- Refer the 
+[Bug Fixing Procedure](https://github.com/Diligent-Software-LLC/linked_list_impl/issues/2).
