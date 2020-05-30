@@ -34,13 +34,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9613de64-25f8-4766-85e1-338bbfa32e40" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.rakeTasks" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.rakeTasks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/linked_list_impl.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/linked_list_impl.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linked_list_impl.gemspec" beforeDir="false" afterPath="$PROJECT_DIR$/linked_list_impl.gemspec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/helpers/inspect_helper_test.rb" beforeDir="false" afterPath="$PROJECT_DIR$/test/helpers/inspect_helper_test.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/linked_list_impl_test.rb" beforeDir="false" afterPath="$PROJECT_DIR$/test/linked_list_impl_test.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Changelog.md" beforeDir="false" afterPath="$PROJECT_DIR$/Changelog.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -288,7 +282,7 @@
       <workItem from="1587562768320" duration="27071000" />
       <workItem from="1588019223798" duration="1814000" />
       <workItem from="1590446666148" duration="15216000" />
-      <workItem from="1590865528645" duration="2871000" />
+      <workItem from="1590865528645" duration="5429000" />
     </task>
     <task id="LOCAL-00001" summary="Initialized Local Repository&#10;&#10;Created remote repository, no push. Initialized project directory.">
       <created>1584720892679</created>
@@ -339,10 +333,17 @@
       <option name="project" value="LOCAL" />
       <updated>1590508824919</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Development Complete&#10;&#10;Deleted node 'require'ment. Deleted data_type 'require'ment. Deleted linked_list_iterator 'require'ment. Added node_comp and linked_list_int 'require'ment. Updated source documentation. Updated 'initialize(d_or_n = nil)', 'shallow_clone()', '==(inst = nil)', 'remove(n = nil)', 'insert(node1 = nil, node2 = nil)', 'initialize_node(dti = nil)', 'attach_nodes(n1 = nil, n2 = nil)', and 'detach_nodes(n1 = nil, n2 = nil)'. Added 'clone_df()', 'exists(n = nil)', 'size=(i = nil)' protected, 'increment_s()', and 'decrement_s()'. Deleted 'clone()', '===(inst = nil)', 'iterator()', and private 'size=(integer = nil)'. Updated test constants. Added test coverage. Formatted tests. Deleted data_structure_library and node dependencies. Added node_comp, data_structure_comp, node_error, diagram_factory_comp, and diagram_comp dependencies.">
+      <created>1590870315967</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1590870315969</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers>
       <YouTrack url="https://macbook-pro.local:8443">
-        <option name="defaultSearch" value="project: LinkedList  Subsystem: {No Subsystem} Component: Implementation State: {Development} Sprints: 10" />
+        <option name="defaultSearch" value="project: LinkedList  Subsystem: {No Subsystem} Component: Implementation State: {Prepare Deployment} Sprints: 10" />
         <username>admin</username>
       </YouTrack>
     </servers>
@@ -370,7 +371,8 @@
     <MESSAGE value="Prepare Deployment&#10;&#10;Edited YARDocumentation. Updated linked_list_int Major Version number." />
     <MESSAGE value="Prepare Deployment&#10;&#10;Bumped Minor Version. Fixed linked_list_impl.rb's 'require' data_library statement. Fixed linked_list_impl_test.rb tests using 'STRING_DATA' and 'TIME_DATA'." />
     <MESSAGE value="Setup Complete&#10;&#10;Edited source documentation. Bumped Major Version. Edited Gem Specification's email, summary, and description. Updated dependencies. Rewrote README.md." />
-    <option name="LAST_COMMIT_MESSAGE" value="Setup Complete&#10;&#10;Edited source documentation. Bumped Major Version. Edited Gem Specification's email, summary, and description. Updated dependencies. Rewrote README.md." />
+    <MESSAGE value="Development Complete&#10;&#10;Deleted node 'require'ment. Deleted data_type 'require'ment. Deleted linked_list_iterator 'require'ment. Added node_comp and linked_list_int 'require'ment. Updated source documentation. Updated 'initialize(d_or_n = nil)', 'shallow_clone()', '==(inst = nil)', 'remove(n = nil)', 'insert(node1 = nil, node2 = nil)', 'initialize_node(dti = nil)', 'attach_nodes(n1 = nil, n2 = nil)', and 'detach_nodes(n1 = nil, n2 = nil)'. Added 'clone_df()', 'exists(n = nil)', 'size=(i = nil)' protected, 'increment_s()', and 'decrement_s()'. Deleted 'clone()', '===(inst = nil)', 'iterator()', and private 'size=(integer = nil)'. Updated test constants. Added test coverage. Formatted tests. Deleted data_structure_library and node dependencies. Added node_comp, data_structure_comp, node_error, diagram_factory_comp, and diagram_comp dependencies." />
+    <option name="LAST_COMMIT_MESSAGE" value="Development Complete&#10;&#10;Deleted node 'require'ment. Deleted data_type 'require'ment. Deleted linked_list_iterator 'require'ment. Added node_comp and linked_list_int 'require'ment. Updated source documentation. Updated 'initialize(d_or_n = nil)', 'shallow_clone()', '==(inst = nil)', 'remove(n = nil)', 'insert(node1 = nil, node2 = nil)', 'initialize_node(dti = nil)', 'attach_nodes(n1 = nil, n2 = nil)', and 'detach_nodes(n1 = nil, n2 = nil)'. Added 'clone_df()', 'exists(n = nil)', 'size=(i = nil)' protected, 'increment_s()', and 'decrement_s()'. Deleted 'clone()', '===(inst = nil)', 'iterator()', and private 'size=(integer = nil)'. Updated test constants. Added test coverage. Formatted tests. Deleted data_structure_library and node dependencies. Added node_comp, data_structure_comp, node_error, diagram_factory_comp, and diagram_comp dependencies." />
   </component>
   <component name="WindowStateProjectService">
     <state x="446" y="175" key="#Servers" timestamp="1584653963351">
@@ -393,10 +395,10 @@
       <screen x="0" y="23" width="1680" height="975" />
     </state>
     <state x="554" y="274" key="#com.intellij.tools.ToolEditorDialog/0.23.1680.975@0.23.1680.975" timestamp="1585838483955" />
-    <state x="57" y="46" width="1543" height="905" key="CommitChangelistDialog2" timestamp="1590508824064">
+    <state x="57" y="46" width="1543" height="905" key="CommitChangelistDialog2" timestamp="1590870314014">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
-    <state x="57" y="46" width="1543" height="905" key="CommitChangelistDialog2/0.23.1680.975@0.23.1680.975" timestamp="1590508824064" />
+    <state x="57" y="46" width="1543" height="905" key="CommitChangelistDialog2/0.23.1680.975@0.23.1680.975" timestamp="1590870314013" />
     <state width="1541" height="270" key="GridCell.Tab.0.bottom" timestamp="1590866788129">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
@@ -433,10 +435,10 @@
       <screen x="0" y="23" width="1680" height="975" />
     </state>
     <state x="511" y="235" width="670" height="675" key="run.anything.popup/0.23.1680.975@0.23.1680.975" timestamp="1587600545357" />
-    <state x="511" y="237" width="670" height="676" key="search.everywhere.popup" timestamp="1590588146255">
+    <state x="511" y="237" width="670" height="676" key="search.everywhere.popup" timestamp="1590870393147">
       <screen x="0" y="23" width="1680" height="975" />
     </state>
-    <state x="511" y="237" width="670" height="676" key="search.everywhere.popup/0.23.1680.975@0.23.1680.975" timestamp="1590588146255" />
+    <state x="511" y="237" width="670" height="676" key="search.everywhere.popup/0.23.1680.975@0.23.1680.975" timestamp="1590870393147" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/linked_list_impl@test_init_x3.rcov" NAME="test_init_x3 Coverage Results" MODIFIED="1586912221325" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="linked_list_impl" />

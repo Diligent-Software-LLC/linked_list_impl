@@ -1,5 +1,35 @@
 # Changelog
 
+## v2.0.0, 2020-05-30
+
+### Added
+
+- node_comp and linked_list_int 'require'ment.
+- 'clone_df()', 'exists(n = nil)', 'size=(i = nil)' protected, 'increment_s()', 
+and 'decrement_s()'.
+- node_comp, data_structure_comp, node_error, diagram_factory_comp, and 
+diagram_comp dependencies.
+
+### Edited
+
+- Updated source documentation.
+- Gem Specification's email, summary, and description.
+- Rewrote README.md.
+- Deleted node 'require'ment.
+- Deleted data_type 'require'ment.
+- Deleted linked_list_iterator 'require'ment.
+- Updated 'initialize(d_or_n = nil)', 'shallow_clone()', '==(inst = nil)', 
+'remove(n = nil)', 'insert(node1 = nil, node2 = nil)', 
+'initialize_node(dti = nil)', 'attach_nodes(n1 = nil, n2 = nil)', and
+ 'detach_nodes(n1 = nil, n2 = nil)'.
+- Deleted 'clone()', '===(inst = nil)', 'iterator()', and private 
+'size=(integer = nil)'.
+- Updated test constants.
+- Formatted tests.
+- Deleted data_structure_library and node dependencies.
+
+### Fixed
+
 ## v1.1.0, 2020-04-27
 
 ### Added
