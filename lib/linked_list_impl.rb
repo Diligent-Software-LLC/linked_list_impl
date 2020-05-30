@@ -3,43 +3,47 @@
 
 require_relative "linked_list_impl/version"
 require_relative 'helpers/inspect_helper'
-require 'node'
-require 'data_type'
-require 'linked_list_iterator'
+require 'node_comp'
+require 'linked_list_int'
 
 # LinkedList.
-# @class_description
-#   A LinkedList data structure implementation. Implements the LinkedList
-#   interface.
-# @attr base [Node]
-#   A node reference. The list's base.
+# @description
+#   A doubly-linked LinkedList data structure library's implementation.
+#   Implements the LinkedList interface.
+# @attr base [NodeAdapter]
+#   A base.
 # @attr size [Integer]
-#   The list's node quantity.
+#   The list's element quantity.
 class LinkedList < LinkedListInt
 
   include InspectHelper
 
   # initialize(d_or_n = nil).
   # @description
-  #   Initializes a list instance.
-  # @param d_or_n [DataType, Node]
-  #   A DataType type or Node instance.
+  #   Initializes a LinkedList instance.
+  # @param d_or_n [Node, DataType, NodeAdapter]
+  #   Any instance.
   # @return [LinkedList]
   #   A LinkedList instance.
   # @raise [ArgumentError]
   #   In the case the argument is neither a DataType type or Node instance.
   def initialize(d_or_n = nil)
 
+    arg_class = d_or_n.class()
     case
-    when DataType.instance?(d_or_n)
-      self.base = initialize_node(d_or_n)
-      self.size = 1
-    when d_or_n.instance_of?(Node)
+    when arg_class.equal?(Node)
+      n_a = NodeAdapter.new(d_or_n)
+      self.base = n_a
+      increment_s()
+    when arg_class.equal?(NodeAdapter)
       self.base = d_or_n
-      self.size = 1
+      increment_s()
+    when DataType.type?(arg_class)
+      self.base = initialize_node(d_or_n)
+      increment_s()
     else
-      error = ArgumentError.new()
-      raise(error, "#{d_or_n} is neither a DataType or Node instance.")
+      raise(ArgumentError,
+            "#{d_or_n} is neither a DataType or Node family type instance.")
     end
 
   end
@@ -51,115 +55,116 @@ class LinkedList < LinkedListInt
   #   Returns the LinkedList clone.
   def shallow_clone()
 
-    if (base().nil?())
-      return clone()
+    n_a = NodeAdapter.new(base())
+    n_a.size = size()
+    if (frozen?())
+      n_a.freeze()
     end
-
-    iter   = iterator()
-    c_list = LinkedList.new(base().shallow_clone())
-    c_iter = c_list.iterator()
-    while (!iter.position().equal?(size() - ONE))
-
-      iter.next()
-      c_element = c_iter.element()
-      pro_n     = iter.element()
-      pro_n_c   = pro_n.shallow_clone()
-      detach(pro_n_c)
-      c_list.insert(pro_n_c, c_element)
-      c_iter.next()
-
-    end
-    return c_list
+    return n_a
 
   end
 
-  # clone().
+  # clone_df().
   # @description
-  #   Clones self. Overrides Object's clone method.
+  #   Deeply clones.
   # @return [LinkedList]
-  #   self's clone. The clone is attributively equal and not identical.
-  def clone()
+  #   A deep clone. No Node references are identical. The data references are
+  #   identical.
+  def clone_df()
 
-    case
-    when empty?()
+    clone = shallow_clone()
+    c_iter = LinkedListIterator.new(clone.base())
+    iter = LinkedListIterator.new(base())
+    list_element = iter.element()
 
-      l_clone = LinkedList.new(base())
-      c_iter  = l_clone.iterator()
-      l_clone.remove(c_iter.element())
-      return l_clone
+    if (list_element.equal?(base()))
 
-    when size() === ONE
-      return LinkedList.new(base())
-    else
+      while (!list_element.pioneer())
 
-      iter = iterator()
-      iter.next()
-      l_c         = LinkedList.new(base())
-      lci         = l_c.iterator()
-      lci_element = lci.element()
-      pos         = ONE
-      while (pos < size())
-
-        ie_clone = iter.element()
-        l_c.insert(ie_clone, lci_element)
-        iter.next()
-        pos += 1
-        lci.next()
+        cdf_node = list_element.clone_df()
+        clone.insert(list_element, cdf_node)
+        c_iter.next()
 
       end
-      return l_c
+      cdf_node = list_element.clone_df()
+      clone.insert(cdf_node, c_iter.element())
 
     end
+    if (frozen?())
+      clone.freeze()
+    end
+    return clone
 
   end
 
   # size().
   # @description
-  #   Gets the list's node quantity.
+  #   Gets the list's size.
   # @return [Integer]
-  #   The list size.
+  #   The element quantity.
   def size()
     return @size
   end
 
-  # empty?().
+  # exists(n = nil).
   # @description
-  #   Boolean method.
+  #   Predicate. Verifies an object is a list element.
+  # @param n [.]
+  #   Any object.
   # @return [TrueClass, FalseClass]
-  #   True in the case size is 0. False otherwise.
-  def empty?()
-    return size().zero?()
-  end
+  #   True in the case 'n' is a list element. False otherwise.
+  def exists(n = nil)
 
-  # ==(inst = nil).
-  # @description
-  #   Equality operator.
-  # @param inst [.]
-  #   A comparison instance.
-  # @return [TrueClass, FalseClass]
-  #   True in the case the lists' attributes are identical. False
-  #   otherwise.
-  def ==(inst = nil)
-
-    if (!inst.instance_of?(LinkedList))
+    unless (n.instance_of?(NodeAdapter))
       return false
     else
-      attr_eql = (base().equal?(inst.base()) && (size().equal?(inst.size())))
-      return attr_eql
+
+      iter = LinkedListIterator.new(base())
+      iter_element = iter.element()
+      while ((!iter_element.pioneer()) && (!iter_element.lone()))
+
+        if (iter_element.equal?(n))
+          return true
+        end
+        iter.next()
+
+      end
+      if (iter_element.equal?(n))
+        return true
+      else
+        return false
+      end
+
     end
 
   end
 
-  # ===(inst = nil).
+  # empty().
   # @description
-  #   Identity comparison operator. Compares self and inst.
-  # @param inst [.]
-  #   A comparison instance.
+  #   Predicate. Verifies size is 0.
   # @return [TrueClass, FalseClass]
-  #   true in the case the two lists' object_ids are the same. false
-  #   otherwise.
-  def ===(inst = nil)
-    return equal?(inst)
+  #   True in the case the size is zero. False otherwise.
+  def empty()
+    return size().zero?()
+  end
+
+  # ==(object = nil).
+  # @description
+  #   Equality operator.
+  # @param object [.]
+  #   Any object. A comparison.
+  # @return [TrueClass, FalseClass]
+  #   True in the case the lhs and rhs' attribute references are identical.
+  #   False otherwise.
+  def ==(object = nil)
+
+    unless (object.instance_of?(NodeAdapter))
+      return false
+    else
+      return ((back().equal?(object.back()) && (data().equal?(object.data())) &&
+          (front().equal?(object.front()))))
+    end
+
   end
 
   # inspect().
@@ -183,191 +188,149 @@ class LinkedList < LinkedListInt
 
   # remove(n = nil).
   # @description
-  #   Removes the list's node. In the case node is not in the list, removes
-  #   nothing.
-  # @param node [Node]
-  #   The removal node.
+  #   Removes the list's NodeAdapter 'n'.
+  # @param n [NodeAdapter]
+  #   A list Node. The removal.
   # @return [NilClass]
   #   nil.
-  # @raise [NodeError]
-  #   In the case the argument is not a Node instance. In the case the list
-  #   is empty.
+  # @raise [ArgumentError]
+  #   In the case the argument was not found in the list.
   def remove(n = nil)
 
     case
-    when empty?()
-      raise(IndexError, 'The list is empty.')
-    when !n.instance_of?(Node)
-      error = NodeError.new()
-      raise(error, error.message())
-    when base().no_attachments() && (n === base())
-      self.base = nil
-      self.size = 0
-    when base().no_attachments() && !(n === base())
-      return nil
-    else
-
-      l_iterator = iterator()
-      id_n       = nil
-      l_element  = l_iterator.element()
-      while (!(n === l_element) && !(l_element.pioneer()))
-        l_iterator.next()
-        l_element = l_iterator.element()
-      end
-      if (l_element.equal?(n))
-        id_n = n
-      else
-        return id_n
-      end
-
-      case
-      when id_n.nil?()
-        return nil
-      when id_n.base()
-
-        l_iterator.next()
-        self.base = l_iterator.element()
-        detach_nodes(id_n, l_iterator.element())
-
-      when id_n.pioneer()
-
-        l_iterator.prev()
-        back_n = l_iterator.element()
-        detach_nodes(back_n, id_n)
-
-      when id_n.back_attached() && id_n.front_attached()
-
-        l_iterator.prev()
-        pre_n = l_iterator.element()
-        l_iterator.next()
-        l_iterator.next()
-        pro_n = l_iterator.element()
-        attach_nodes(pre_n, pro_n)
-        detach(id_n)
-
-      end
-      self.size = size() - 1
-
+    when (!n.instance_of?(NodeAdapter))
+      raise(ArgumentError, "#{n} is not a NodeAdapter instance.")
+    when (!exists(n))
+      raise(ArgumentError, "#{n} is not a list element.")
     end
+    pre_n = n.back()
+    post_n = n.front()
+    attach(pre_n, post_n)
+    n.detach_back()
+    n.detach_front()
+    decrement_s()
     return nil
 
   end
 
-  # insert(node1 = nil, node2 = nil).
+  # insert(n1 = nil, n2 = nil).
   # @description
-  #   Inserts a node after a specific node.
-  # @param node1 [Node]
-  #   The insertion node.
-  # @param node2 [Node]
-  #   The insertion's preceding Node.
+  #   Inserts a Node after a specific Node.
+  # @param n1 [Node, NodeAdapter]
+  #   A consequent. The insertion.
+  # @param n2 [NodeAdapter]
+  #   A precession. An existing list Node.
   # @return [NilClass]
   #   nil.
-  # @raise [NodeError]
-  #   In the case node1 or node2 are any type other than Node.
-  def insert(node1 = nil, node2 = nil)
+  def insert(n1 = nil, n2 = nil)
 
     case
-    when (!node1.instance_of?(Node) || !node2.instance_of?(Node))
-      error = NodeError.new()
-      raise(error, error.message())
-    else
+    when (!n1.kind_of?(Node))
+      raise(ArgumentError, "#{n1} is not a Node family instance.")
+    when (!n2.instance_of?(NodeAdapter))
+      raise(ArgumentError, "#{n2} is not a NodeAdapter instance.")
+    when (!exists(n2))
+      raise(ArgumentError, "#{n2} is not a list element.")
+    when (n1.instance_of?(Node))
+      n1 = NodeAdapter.new(n1)
+    end
 
-      detach(node1)
-      id_n       = nil
-      l_iterator = iterator()
-      id_n       = node2 if (node2 === l_iterator.element())
-      while ((!(node2 === l_iterator.element()) &&
-          !(l_iterator.element().pioneer() ||
-              l_iterator.element().no_attachments())))
-        l_iterator.next()
-      end
+    na_kind        = n2.kind()
+    k1             = 'lone'.freeze()
+    k2             = 'pioneer'.freeze()
+    k3             = 'base'.freeze()
+    k4 = 'common'.freeze()
+    case na_kind
+    when k1, k2
+      attach(n2, n1)
+    when k3, k4
 
-      if (node2 === l_iterator.element())
-        id_n = node2
-      else
-        return id_n
-      end
-
-      case
-      when id_n.no_attachments(), node2.pioneer()
-        attach_nodes(node2, node1)
-      when node2.base(), (node2.front_attached() && node2.back_attached())
-
-        l_iterator.next()
-        pro_n = l_iterator.element()
-        attach_nodes(node2, node1)
-        attach_nodes(node1, pro_n)
-
-      end
-      self.size += 1
+      conseq_n = n2.front()
+      attach(n2, conseq_n)
+      attach(n1, n2)
 
     end
+    increment_s()
     return nil
 
-  end
-
-  # iterator().
-  # @description
-  #   Instantiates a LinkedListIterator.
-  # @return [LinkedListIterator]
-  #   An iterator instance.
-  def iterator()
-    return LinkedListIterator.new(base())
   end
 
   protected
 
-  # base()
+  # base().
   # @description
-  #   Gets the base node's reference.
-  # @return [Node, NilClass]
-  #   The instance.
+  #   Gets base's reference.
+  # @return [NodeAdapter]
+  #   'base'.
   def base()
     return @base
+  end
+
+  # size=(i = nil).
+  # @description
+  #   Sets 'size'.
+  # @param i [Integer]
+  #   An integer list size.
+  # @return [Integer]
+  #   The argument.
+  def size=(i = nil)
+    @size = i
   end
 
   private
 
   # initialize_node(dti = nil).
   # @description
-  #   Initializes an insertion Node.
+  #   Initializes a NodeAdapter instance.
   # @param dti [DataType]
-  #   The initialize method's data argument.
-  # @return [Node]
-  #   A Node instance. The Node's data is the argument.
+  #   The NodeAdapter's data setting.
+  # @return [NodeAdapter]
+  #   The NodeAdapter instance.
   def initialize_node(dti = nil)
+
     b_node = Node.new(nil, dti, nil)
-    return b_node
+    n_a = NodeAdapter.new(b_node)
+    return n_a
+
   end
 
-  # size=(integer = nil).
+  # base=(n = nil).
   # @description
-  #   Setter. Sets the size attribute.
-  # @param [Integer] integer
-  #   The list's Node quantity.
-  def size=(integer = nil)
-    @size = integer
-  end
-
-  # base=(node = nil).
-  # @description
-  #   Sets the base node.
-  # @param [Node]
-  #   The node becoming the list's base.
+  #   Sets 'base'.
+  # @param n [NodeAdapter]
+  #   The instance becoming 'base'.
   def base=(node = nil)
     @base = node
   end
 
-  # attach_nodes(n1 = nil, n2 = nil).
+  # increment_s().
   # @description
-  #   Attaches two Nodes.
-  # @param n1 [Node]
-  #   The precession Node. Sets the front attribute the second Node's reference.
-  # @param n2 [Node]
-  #   The consequential Node. Sets the back attribute the preceding Node.
+  #   Increment operator. Increments size.
+  # @return [Integer]
+  #   The list's size plus one.
+  def increment_s()
+    self.size = (size() + 1)
+  end
+
+  # decrement_s().
+  # @description
+  #   Decrement operator. Decrements size.
+  # @return [Integer]
+  #   The list's size less one.
+  def decrement_s()
+    self.size = (size() - 1)
+  end
+
+  # attach(n1 = nil, n2 = nil).
+  # @description
+  #   Attaches two NodeAdapters.
+  # @param n1 [NodeAdapter]
+  #   A precession.
+  # @param n2 [NodeAdapter]
+  #   A consequent.
   # @return [NilClass]
   #   nil.
-  def attach_nodes(n1 = nil, n2 = nil)
+  def attach(n1 = nil, n2 = nil)
 
     n1.attach_front(n2)
     n2.attach_back(n1)
@@ -375,16 +338,16 @@ class LinkedList < LinkedListInt
 
   end
 
-  # detach_nodes(n1 = nil, n2 = nil).
+  # detach(n1 = nil, n2 = nil).
   # @description
-  #   Detaches two Nodes.
-  # @param n1 [Node]
-  #   The precession. Sets front nil.
-  # @param n2 [Node]
-  #   The consequent. Sets back nil.
+  #   Detaches two linked NodeAdapters.
+  # @param n1 [NodeAdapter]
+  #   A precession.
+  # @param n2 [NodeAdapter]
+  #   A consequent.
   # @return [NilClass]
   #   nil.
-  def detach_nodes(n1 = nil, n2 = nil)
+  def detach(n1 = nil, n2 = nil)
 
     n1.detach_front()
     n2.detach_back()
@@ -392,21 +355,7 @@ class LinkedList < LinkedListInt
 
   end
 
-  # detach(n = nil).
-  # @description
-  #   Detaches a list Node's front and back references.
-  # @param n [Node]
-  #   Any list Node.
-  # @return [NilClass]
-  #   nil.
-  def detach(n = nil)
-
-    n.detach_back()
-    n.detach_front()
-    return nil
-
-  end
-
+  # Private constants.
   ZERO = 0
   ONE  = 1
   private_constant :ONE

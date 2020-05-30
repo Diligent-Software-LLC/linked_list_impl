@@ -7,24 +7,23 @@ class LinkedListTest < Minitest::Test
 
   # Constants.
   CLASS = LinkedList
-
-  NILCLASS_DATA = nil
+  NILCLASS_I = nil
   INTEGER_DATA    = 2
   FALSECLASS_DATA = false
   TRUECLASS_DATA  = true
-  SYMBOL_DATA     = :test_symbol
+  TEST_SYMBOL     = :test_symbol
   COMPLEX_DATA    = Complex(1)
-  FLOAT_DATA      = 0.0
+  TEST_FLOAT      = 0.0
   INVALID_DATA    = {}
-
   ZERO = 0
   ONE  = 1
   TWO  = 2
 
   # test_conf_doc_f_ex().
   # @description
-  #   The .travis.yml, CODE_OF_CONDUCT.md, Gemfile, LICENSE.txt, README.md, and
-  #   .yardopts files exist.
+  #   The .travis.yml, CODE_OF_CONDUCT.md, Gemfile, LICENSE.txt, README.md,
+  #   .yardopts, .gitignore, Changelog.md, CODE_OF_CONDUCT.md,
+  #   linked_list_impl.gemspec, Gemfile.lock, and Rakefile files exist.
   def test_conf_doc_f_ex()
 
     assert_path_exists('.travis.yml')
@@ -33,6 +32,12 @@ class LinkedListTest < Minitest::Test
     assert_path_exists('LICENSE.txt')
     assert_path_exists('README.md')
     assert_path_exists('.yardopts')
+    assert_path_exists('.gitignore')
+    assert_path_exists('Changelog.md')
+    assert_path_exists('CODE_OF_CONDUCT.md')
+    assert_path_exists('linked_list_impl.gemspec')
+    assert_path_exists('Gemfile.lock')
+    assert_path_exists('Rakefile')
 
   end
 
@@ -47,62 +52,65 @@ class LinkedListTest < Minitest::Test
   # @description
   #   Set fixtures.
   def setup()
-    @node = Node.new(NILCLASS_DATA, INTEGER_DATA, NILCLASS_DATA)
+
+    @node = Node.new(NILCLASS_I, INTEGER_DATA, NILCLASS_I)
+    @empty_list = LinkedList.new(@node)
+    @empty_list.remove(@node)
+
   end
 
-  # initialize(d_or_n = nil)
+  # initialize(d_or_n = nil).
 
   # test_init_x1().
   # @description
   #   A valid DataType type instance argument.
   def test_init_x1()
-
     x1_l  = CLASS.new(INTEGER_DATA)
-    x1_it = x1_l.iterator()
-    assert_same(INTEGER_DATA, x1_it.data())
-
+    assert_same(x1_l.size(), ONE)
   end
 
   # test_init_x2().
   # @description
   #   A Node instance.
   def test_init_x2()
-
     x2_l  = CLASS.new(@node)
-    x2_it = x2_l.iterator()
-    assert_same(x2_it.element(), @node)
-
+    assert_same(x2_l.size(), ONE)
   end
 
   # test_init_x3().
   # @description
-  #   An invalid argument.
+  #   A NodeAdapter argument.
   def test_init_x3()
-    assert_raises(ArgumentError) { CLASS.new(INVALID_DATA) }
+
+    na = NodeAdapter.new(@node)
+    r = LinkedList.new(na)
+    assert_instance_of(LinkedList, r)
+    refute_predicate(r, :empty)
+
   end
 
   # test_init_x4().
   # @description
-  #   No arguments.
+  #   Any object excluding DataType type and Node family instances.
   def test_init_x4()
 
-    x4_init = CLASS.new()
-    x4_it   = x4_init.iterator()
-    assert_same(x4_it.data(), NILCLASS_DATA)
+    assert_raises(ArgumentError, "#{INVALID_DATA} is not a DataType type
+instance or a Node family type instance.") {
+      LinkedList.new(INVALID_DATA)
+    }
 
   end
 
-  # shallow_clone()
+  # shallow_clone().
 
   # test_sc_x1().
   # @description
   #   An empty list.
   def test_sc_x1()
 
-    x1_l = LinkedList.new(@node)
-    x1_l.remove(@node)
-    s_c = x1_l.shallow_clone()
-    assert_equal(s_c, x1_l)
+    s_c = @empty_list.shallow_clone()
+    refute_same(s_c, @empty_list)
+    assert_equal(s_c, @empty_list)
 
   end
 
@@ -111,13 +119,10 @@ class LinkedListTest < Minitest::Test
   #   A size one list.
   def test_sc_x2()
 
-    x1_l = LinkedList.new(@node)
-    s_c  = x1_l.shallow_clone()
-    refute_same(x1_l, s_c)
-    refute_equal(x1_l, s_c)
-    c_iter = s_c.iterator()
-    iter   = x1_l.iterator()
-    assert_same(c_iter.data(), iter.data())
+    list = LinkedList.new(@node)
+    s_c = list.shallow_clone()
+    refute_same(list, s_c)
+    assert_equal(list, s_c)
 
   end
 
@@ -126,66 +131,81 @@ class LinkedListTest < Minitest::Test
   #   A list size greater than one.
   def test_sc_x3()
 
-    n1   = Node.new(NILCLASS_DATA, SYMBOL_DATA, NILCLASS_DATA)
+    n1   = Node.new(NILCLASS_I, TEST_SYMBOL, NILCLASS_I)
     x3_l = LinkedList.new(@node)
     x3_l.insert(n1, @node)
     s_c = x3_l.shallow_clone()
     refute_same(x3_l, s_c)
-    refute_equal(x3_l, s_c)
-    iter   = x3_l.iterator()
-    c_iter = s_c.iterator()
-    assert_same(iter.data(), c_iter.data())
-    iter.next()
-    c_iter.next()
-    assert_same(iter.data(), c_iter.data())
+    assert_equal(x3_l, s_c)
 
   end
 
-  # clone()
-
-  # test_clone_x1().
+  # test_sc_x4().
   # @description
-  #   The list is empty.
-  def test_clone_x1()
+  #   The list is frozen.
+  def test_sc_x4()
 
-    x1_l = CLASS.new(@node)
-    x1_l.remove(@node)
-    l_clone = x1_l.clone()
-    assert_same(x1_l.size(), l_clone.size())
-    assert_raises(NodeError) { x1_l.iterator() }
-    assert_raises(NodeError) { l_clone.iterator() }
+    list = LinkedList.new(@node_adapter)
+    list.freeze()
+    clone = list.shallow_clone()
+    refute_same(list, clone)
+    assert_predicate(clone, :frozen?)
 
   end
 
-  # test_clone_x2().
+  # clone_df().
+
+  # test_cdf_x1().
   # @description
-  #   The list size is greater than 0.
-  def test_clone_x2()
+  #   An empty list.
+  def test_cdf_x1()
 
-    x2_l    = CLASS.new(@node)
-    x2_l_c  = x2_l.clone()
-    x2_c_it = x2_l_c.iterator()
-    assert_same(x2_c_it.element(), @node)
-    assert_same(x2_l.size(), x2_l_c.size())
+    clone = @empty_list.clone_df()
+    assert_equal(clone, @empty_list)
+    refute_same(clone, @empty_list)
 
   end
 
-  # test_clone_x3().
+  # test_cdf_x2().
   # @description
-  #   Cloning a list sizing greater than 1. The lists are attributively equal
-  #   and identically unequal.
-  def test_clone_x3()
+  #   The list size is one.
+  def test_cdf_x2()
 
-    x3_l  = LinkedList.new(@node)
-    ins_n = Node.new(NILCLASS_DATA, SYMBOL_DATA, NILCLASS_DATA)
-    x3_l.insert(ins_n, @node)
-    x3_l_c = x3_l.clone()
-    assert_equal(x3_l, x3_l_c)
-    refute_same(x3_l, x3_l_c)
+    list = LinkedList.new(@node)
+    clone = list.clone_df()
+    refute_same(list, clone)
+    refute_equal(list, clone)
 
   end
 
-  # size()
+  # test_cdf_x3().
+  # @description
+  #   A list size greater than one.
+  def test_cdf_x3()
+
+    list = LinkedList.new(@node)
+    insertion = Node.new(NILCLASS_I, TEST_FLOAT, NILCLASS_I)
+    list.insert(insertion, @node)
+    clone = list.clone_df()
+    refute_same(clone, list)
+    refute_equal(clone, list)
+
+  end
+
+  # test_cdf_x4().
+  # @description
+  #   The list is frozen.
+  def test_cdf_x4()
+
+    list = LinkedList.new(@node_adapter)
+    list.freeze()
+    clone = list.shallow_clone()
+    refute_same(list, clone)
+    assert_predicate(clone, :frozen?)
+
+  end
+
+  # size().
 
   # test_size_x1().
   # @description
@@ -212,13 +232,30 @@ class LinkedListTest < Minitest::Test
   def test_size_x3()
 
     x3_l  = LinkedList.new(@node)
-    ins_n = Node.new(NILCLASS_DATA, COMPLEX_DATA, NILCLASS_DATA)
+    ins_n = Node.new(NILCLASS_I, COMPLEX_DATA, NILCLASS_I)
     x3_l.insert(ins_n, @node)
     assert_same(TWO, x3_l.size())
 
   end
 
-  # empty?()
+  # exists(n = nil).
+
+  # test_exists_x1().
+  # @description
+  #   The argument is not a list element.
+  def test_exists_x1()
+    refute_operator(@empty_list, 'exists', @node)
+  end
+
+  # test_exists_x2().
+  # @description
+  #   The argument is a list element.
+  def test_exists_x2()
+    list = LinkedList.new(@node)
+    assert_operator(list, 'exists', @node)
+  end
+
+  # empty().
 
   # test_empty_x1().
   # @description
@@ -227,7 +264,7 @@ class LinkedListTest < Minitest::Test
 
     x1_l = LinkedList.new(@node)
     x1_l.remove(@node)
-    assert_predicate(x1_l, :empty?)
+    assert_predicate(x1_l, :empty)
 
   end
 
@@ -236,41 +273,31 @@ class LinkedListTest < Minitest::Test
   #   A list containing greater than zero nodes is not empty.
   def test_empty_x2()
     x2_l = LinkedList.new(@node)
-    refute_predicate(x2_l, :empty?)
+    refute_predicate(x2_l, :empty)
   end
 
-  # ==(inst = nil)
+  # ==(object = nil).
 
-  # test_attr_eq_op_x1().
+  # test_attreq_x1().
   # @description
-  #   A clone attributively equals its origin.
-  def test_attr_eq_op_x1()
+  #   A shallow clone attributively equals its origin.
+  def test_attreq_x1()
 
     x1_l  = LinkedList.new(@node)
-    clone = x1_l.clone()
+    clone = x1_l.shallow_clone()
     assert_operator(clone, '==', x1_l)
 
   end
 
-  # ===(inst = nil)
-
-  # test_identity_op_x1().
+  # test_attreq_x2().
   # @description
-  #   A list identically equals itself.
-  def test_identity_op_x1()
-    x1_l = LinkedList.new(@node)
-    assert_operator(x1_l, '===', x1_l)
+  #   An unequal 'base' or 'size'.
+  def test_attreq_x2()
+    list = LinkedList.new(@node)
+    refute_equal(list, @empty_list)
   end
 
-  # test_identity_op_x2().
-  # @description
-  #   Comparing an instance type other than LinkedList.
-  def test_identity_op_x2()
-    x2_l = LinkedList.new(@node)
-    refute_operator(x2_l, '===', SYMBOL_DATA)
-  end
-
-  # inspect()
+  # inspect().
 
   # test_insp_x1a().
   # @description
@@ -284,7 +311,7 @@ class LinkedListTest < Minitest::Test
 
   end
 
-  # test_insp_x1b()
+  # test_insp_x1b().
   # @description
   #   A list containing one node. Returns the arrowless inspection.
   def test_insp_x1b()
@@ -294,7 +321,7 @@ class LinkedListTest < Minitest::Test
     d_p_q    = (26 - 7) / 2
     padding  = space * d_p_q
     expected = "| base #{@node.to_s()} |\n" +
-        "| #{padding}data: #{@node.d()}#{padding}  |"
+        "| #{padding}data: #{@node.data()}#{padding}  |"
     assert_equal(expected, x1_l.inspect())
 
   end
@@ -306,7 +333,7 @@ class LinkedListTest < Minitest::Test
   def test_insp_x1c()
 
     x1_l  = CLASS.new(@node)
-    ins_n    = Node.new(NILCLASS_DATA, SYMBOL_DATA, NILCLASS_DATA)
+    ins_n    = Node.new(NILCLASS_I, TEST_SYMBOL, NILCLASS_I)
     x1_l.insert(ins_n, @node)
     space    = ' '
     d_p_q1   = (31 - 7) / 2
@@ -314,13 +341,13 @@ class LinkedListTest < Minitest::Test
     d_p_q2   = (26 - 17) / 2
     padding2 = space * d_p_q2
     expected = "| base #{@node.to_s()} |-->| #{ins_n.to_s()} |\n" +
-        "| #{padding1}data: #{@node.d()}#{padding1} |<--|" +
-        " #{padding2}data: #{ins_n.d()}#{padding2}  |"
+        "| #{padding1}data: #{@node.data()}#{padding1} |<--|" +
+        " #{padding2}data: #{ins_n.data()}#{padding2}  |"
     assert_equal(expected, x1_l.inspect())
 
   end
 
-  # remove(n = nil)
+  # remove(n = nil).
 
   # test_remove_x1().
   # @description
@@ -329,7 +356,7 @@ class LinkedListTest < Minitest::Test
 
     x1_l = CLASS.new(@node)
     x1_l.remove(@node)
-    assert_raises(IndexError) {
+    assert_raises(ArgumentError, "#{@node} is not a list element.") {
       x1_l.remove(@node)
     }
 
@@ -343,9 +370,6 @@ class LinkedListTest < Minitest::Test
     x2_l = CLASS.new(@node)
     x2_l.remove(@node)
     assert_same(ZERO, x2_l.size())
-    assert_raises(NodeError) {
-      x2_l.iterator()
-    }
 
   end
 
@@ -354,13 +378,12 @@ class LinkedListTest < Minitest::Test
   #   A list size greater than one.
   def test_remove_x3()
 
-    x3_l = CLASS.new(@node)
-    n_n = Node.new(nil, SYMBOL_DATA, nil)
-    x3_l.insert(n_n, @node)
-    x3_l.remove(n_n)
-    x3_it = x3_l.iterator()
-    assert_same(x3_it.element(), @node)
-    assert_same(ONE, x3_l.size())
+    list = LinkedList.new(@node_adapter)
+    n = Node.new(NILCLASS_I, TEST_FLOAT, NILCLASS_I)
+    list.insert(n, @node_adapter)
+    assert_same(list.size(), TWO)
+    list.remove(@node_adapter)
+    assert_same(list.size(), ONE)
 
   end
 
@@ -369,196 +392,270 @@ class LinkedListTest < Minitest::Test
   #   The argument is not a Node instance.
   def test_remove_x4()
 
-    assert_raises(NodeError) {
-      x4_l = CLASS.new()
-      x4_l.remove(NILCLASS_DATA)
+    assert_raises(ArgumentError,
+                  "#{TEST_SYMBOL} is not a Node family instance.") {
+      @empty_list.remove(TEST_SYMBOL)
     }
 
   end
 
   # test_remove_x5().
   # @description
-  #   The argument is a list element.
+  #   The argument is not a list element.
   def test_remove_x5()
 
-    x5_l = CLASS.new(@node)
-    x5_l.remove(@node)
-    assert_raises(NodeError) {
-      x5_l.iterator()
+    list = LinkedList.new(@node_adapter)
+    assert_raises(ArgumentError, "#{@node_adapter} is not a list element.") {
+      list.remove(na)
     }
 
   end
 
   # test_remove_x6().
   # @description
-  #   The argument is not a list element. The argument is a Node.
+  #   The argument is the 'base' reference, and the list size is greater than
+  #   one.
   def test_remove_x6()
 
-    x6_l = CLASS.new(@node)
-    r_n  = Node.new(nil, SYMBOL_DATA, nil)
-    x6_l.remove(r_n)
-    assert_same(ONE, x6_l.size())
-    x6_it = x6_l.iterator()
-    assert_same(x6_it.element(), @node)
+    list = LinkedList.new(@node_adapter)
+    n2 = Node.new(NILCLASS_I, TEST_SYMBOL, NILCLASS_I)
+    list.insert(n2, @node_adapter)
+    assert_same(list.size(), TWO)
+    list.remove(@node_adapter)
+    assert_operator(list, 'exists', n2)
+    assert_same(list.size(), ONE)
 
   end
 
   # test_remove_x7().
   # @description
-  #   The argument Node is the list's base, and the list size is greater than
-  #   one.
+  #   The removal is a 'common' Node.
   def test_remove_x7()
 
-    x7_l = CLASS.new(@node)
-    n_n = Node.new(NILCLASS_DATA, COMPLEX_DATA, NILCLASS_DATA)
-    x7_l.insert(n_n, @node)
-    x7_l.remove(@node)
-    x7_it = x7_l.iterator()
-    assert_same(ONE, x7_l.size())
-    assert_same(x7_it.element(), n_n)
-
-  end
-
-  # test_remove_x8().
-  # @description
-  #   The list size is greater than two. The removal Node's position is
-  #   neither zero or last. The argument Node is a list element.
-  def test_remove_x8()
-
     x8_l = CLASS.new(@node)
-    n1   = Node.new(NILCLASS_DATA, SYMBOL_DATA, NILCLASS_DATA)
-    n2   = Node.new(NILCLASS_DATA, COMPLEX_DATA, NILCLASS_DATA)
-    x8_l.insert(n1, @node)
-    x8_l.insert(n2, n1)
-    x8_l.remove(n1)
-    x8_it = x8_l.iterator()
-    assert_same(x8_it.element(), @node)
-    x8_it.next()
-    assert_same(x8_it.element(), n2)
+    n1   = Node.new(NILCLASS_I, TEST_SYMBOL, NILCLASS_I)
+    n2   = Node.new(NILCLASS_I, COMPLEX_DATA, NILCLASS_I)
+    na1 = NodeAdapter.new(n1)
+    na2 = NodeAdapter.new(n2)
+    x8_l.insert(na1, @node)
+    x8_l.insert(na2, n1)
+    x8_l.remove(na1)
+    assert_same(x8_l.size(), TWO)
+    assert_operator(x8_l, 'exists', @node_adapter)
+    assert_operator(x8_l, 'exists', na2)
 
   end
 
-  # insert(node1 = nil, node2 = nil)
+  # insert(n1 = nil, n2 = nil).
 
   # test_ins_x1().
   # @description
-  #   The insertion node is not a Node instance.
+  #   The insertion is not a Node or NodeAdapter instance.
   def test_ins_x1()
 
-    assert_raises(NodeError) {
-      x1_l = CLASS.new(@node)
-      x1_l.insert(FALSECLASS_DATA, @node)
+    list = LinkedList.new(@node_adapter)
+    assert_raises(ArgumentError, "#{TEST_SYMBOL} is not a Node family
+instance.") {
+      list.insert(TEST_SYMBOL, @node_adapter)
     }
 
   end
 
   # test_ins_x2().
   # @description
-  #   The precessional Node argument is not a Node instance.
+  #   The precession argument is not a NodeAdapter instance.
   def test_ins_x2()
 
-    assert_raises(NodeError) {
-      x1_l = CLASS.new(@node)
-      x1_l.insert(Node.new(nil, COMPLEX_DATA, nil), SYMBOL_DATA)
+    list = LinkedList.new(@node_adapter)
+    n = Node.new(NILCLASS_I, TEST_COMPLEX, NILCLASS_I)
+    insertion = NodeAdapter.new(n)
+    assert_raises(ArgumentError, "#{TEST_SYMBOL} is not a NodeAdapter
+instance.") {
+      list.insert(insertion, @node_adapter)
     }
 
   end
 
   # test_ins_x3().
   # @description
-  #   Neither arguments are Node instances.
+  #   The precession is not a list element.
   def test_ins_x3()
 
-    assert_raises(NodeError) {
-      x3_l = CLASS.new(@node)
-      x3_l.insert(SYMBOL_DATA, SYMBOL_DATA)
+    list = LinkedList.new(@node_adapter)
+    n1 = Node.new(NILCLASS_I, TEST_FLOAT, NILCLASS_I)
+    na1 = NodeAdapter.new(n1)
+    n2 = Node.new(NILCLASS_I, TEST_RATIONAL, NILCLASS_I)
+    na2 = NodeAdapter.new(n2)
+    assert_raises(ArgumentError, "#{na2} is not a list element.") {
+      list.insert(na1, na2)
     }
 
   end
 
   # test_ins_x4().
   # @description
-  #   The precessional Node argument is not a list element.
+  #   The precession is a 'common' or 'base' Node.
   def test_ins_x4()
 
-    x4_l     = CLASS.new(@node)
-    pre_size = x4_l.size()
-    x4_l.insert(Node.new(nil, INTEGER_DATA, nil), Node.new(nil, SYMBOL_DATA,
-                                                           nil))
-    x4_it = x4_l.iterator()
-    assert_same(pre_size, x4_l.size())
+    list = LinkedList.new(@node_adapter)
+    n = Node.new(NILCLASS_I, TEST_COMPLEX, NILCLASS_I)
+    insertion = NodeAdapter.new(n)
+    assert_same(list.size(), ONE)
+    r = list.insert(insertion, @node_adapter)
+    assert_same(list.size(), TWO)
+    assert_nil(r)
 
   end
 
   # test_ins_x5().
   # @description
-  #   The precessional Node argument is a list element. The insertion Node
-  #   argument is valid.
+  #   The precession is a 'lone' Node.
   def test_ins_x5()
 
-    ins_node = Node.new(nil, SYMBOL_DATA, nil)
-    x5_l     = CLASS.new(@node)
-    x5_l.insert(ins_node, @node)
-    l_it = x5_l.iterator()
-    l_it.next()
-    assert_same(l_it.element(), ins_node)
+    list = LinkedList.new(@node_adapter)
+    n1 = Node.new(NILCLASS_I, TEST_COMPLEX, NILCLASS_I)
+    na1 = NodeAdapter.new(n1)
+    n2 = Node.new(NILCLASS_I, TEST_RATIONAL, NILCLASS_I)
+    na2 = NodeAdapter.new(n2)
+    list.insert(na1, @node_adapter)
+    assert_same(list.size(), TWO)
+    r = list.insert(na2, na1)
+    assert_nil(r)
+    assert_same(list.size(), THREE)
+    assert_predicate(na2, :common)
 
   end
 
   # test_ins_x6().
   # @description
-  #   The insertion Node argument is a list element.
+  #   The precession is a 'pioneer' Node.
   def test_ins_x6()
 
-    assert_raises(NodeError) {
-      x6_l = CLASS.new(@node)
-      x6_l.insert(@node, nil)
+    list = LinkedList.new(@node_adapter)
+    n1 = Node.new(NILCLASS_I, TEST_COMPLEX, NILCLASS_I)
+    na1 = NodeAdapter.new(n1)
+    list.insert(na1, @node_adapter)
+    assert_same(list.size(), TWO)
+    n2 = Node.new(NILCLASS_I, TEST_RATIONAL, NILCLASS_I)
+    na2 = NodeAdapter.new(n2)
+    r = list.insert(na2, na1)
+    assert_nil(r)
+    assert_same(list.size(), THREE)
+    assert_predicate(na2, :pioneer)
+
+  end
+
+  # Protected methods.
+
+  # size=(i = nil).
+
+  # test_sass_x1().
+  # @description
+  #   'size=(i = nil)' was protected.
+  def test_sass_x1()
+
+    assert_raises(NameError) {
+      @empty_list.size = 1
     }
 
   end
 
-  # test_ins_x8().
-  # @description
-  # Inserting data in an empty list raises an IndexError.
-  def test_ins_x8()
+  # base().
 
-    x8_l = LinkedList.new(@node)
-    x8_l.remove(@node)
-    assert_raises(NodeError) {
-      x8_l.insert(@node, nil)
+  # test_base_x1().
+  # @description
+  #   'base()' was protected.
+  def test_base_x1()
+
+    assert_raises(NameError) {
+      @empty_list.base()
     }
 
   end
 
-  # iterator()
+  # Private methods.
 
-  # test_it_x1().
+  # initialize_node(dti = nil).
+
+  # initialize_node(dti = nil).
   # @description
-  #   An empty list.
-  def test_it_x1()
+  #   'initialize_node(dti = nil)' is private.
+  def test_initn_x1()
 
-    assert_raises(NodeError) {
-      x1_l = CLASS.new(@node)
-      x1_l.remove(@node)
-      x1_l.iterator()
+    assert_raises(NameError) {
+      @empty_list.initialize_node(TEST_SYMBOL)
     }
 
   end
 
-  # test_it_x2().
-  # @description
-  #   The list's base node is not nil.
-  def test_it_x2()
+  # base=(n = nil).
 
-    x2_l  = CLASS.new(@node)
-    x2_it = x2_l.iterator()
-    assert_same(x2_it.element(), @node)
+  # test_bass_x1().
+  # @description
+  #   'base=(n = nil)' is private.
+  def test_bass_x1()
+
+    assert_raises(NameError) {
+      @empty_list.back = @node
+    }
+
+  end
+
+  # increment_s().
+
+  # test_incop_x1().
+  # @description
+  #   'increment_s()' is private.
+  def test_incop_x1()
+
+    assert_raises(NameError) {
+      @empty_list.increment_s()
+    }
+
+  end
+
+  # decrement_s().
+
+  # test_sdecrement_x1().
+  # @description
+  #   The size decrement operator is private.
+  def test_sdecrement_x1()
+
+    assert_raises(NameError) {
+      @empty_list.decrement_s()
+    }
+
+  end
+
+  # attach(n1 = nil, n2 = nil).
+
+  # test_attach_x1().
+  # @description
+  #   'attach(n1 = nil, n2 = nil)' is private.
+  def test_attach_x1()
+
+    assert_raises(NameError) {
+      @empty_list.attach(nil, nil)
+    }
+
+  end
+
+  # detach(n1 = nil, n2 = nil).
+
+  # test_detach_x1().
+  # @description
+  #   'detach(n1 = nil, n2 = nil)' is private.
+  def test_detach_x1()
+
+    assert_raises(NameError) {
+      @empty_list.detach(nil, nil)
+    }
 
   end
 
   # teardown().
   # @description
-  # Cleanup.
+  #   Cleanup.
   def teardown()
   end
 

@@ -8,7 +8,7 @@ require_relative '../test_helper'
 #   Tests the InspectHelper module.
 class InspectHelperTest < Minitest::Test
 
-  # Constants
+  # Constants.
   NILCLASS_DATA = nil
   INTEGER_DATA  = 2
   STRING_DATA   = 'test'
@@ -24,7 +24,7 @@ class InspectHelperTest < Minitest::Test
     @node = Node.new(NILCLASS_DATA, INTEGER_DATA, NILCLASS_DATA)
   end
 
-  # inspect_upper()
+  # inspect_upper().
 
   # test_iu_x1().
   # @description
@@ -66,7 +66,7 @@ class InspectHelperTest < Minitest::Test
 
   end
 
-  # inspect_lower()
+  # inspect_lower().
 
   # test_il_x1().
   # @description
@@ -125,7 +125,7 @@ class InspectHelperTest < Minitest::Test
 
   end
 
-  # upper_common(n = nil)
+  # upper_common(n = nil).
 
   # test_uc_x().
   # @description
@@ -143,11 +143,11 @@ class InspectHelperTest < Minitest::Test
 
   end
 
-  # upper_na(n = nil)
+  # upper_na(n = nil).
 
   # test_u_na_x().
   # @description
-  #   An attachmentless Node.
+  #   A lone Node.
   def test_n_na_x()
 
     x_l      = LinkedList.new(@node)
@@ -157,7 +157,7 @@ class InspectHelperTest < Minitest::Test
 
   end
 
-  # upper_base(n = nil)
+  # upper_base(n = nil).
 
   # test_ub_x().
   # @description
@@ -173,7 +173,7 @@ class InspectHelperTest < Minitest::Test
 
   end
 
-  # upper_pioneer(n = nil)
+  # upper_pioneer(n = nil).
 
   # test_up_x().
   # @description
@@ -189,7 +189,7 @@ class InspectHelperTest < Minitest::Test
 
   end
 
-  # lower_element()
+  # lower_element().
 
   # test_le_x().
   # @description
@@ -209,7 +209,7 @@ class InspectHelperTest < Minitest::Test
 
   end
 
-  # lower_base()
+  # lower_base().
 
   # test_lb_x().
   # @description
